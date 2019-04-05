@@ -7,6 +7,9 @@ import * as serviceWorker from "./serviceWorker";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
 
+import GraphqlClient from "./config/graphql";
+import { ApolloProvider } from "react-apollo";
+
 const theme = createMuiTheme({
   palette: {
     primary: blue
@@ -15,7 +18,9 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <App />
+    <ApolloProvider client={GraphqlClient}>
+      <App />
+    </ApolloProvider>
   </MuiThemeProvider>,
   document.getElementById("root")
 );
