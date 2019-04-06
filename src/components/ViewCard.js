@@ -29,7 +29,8 @@ class CapabilityTable extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({selected: this.props.checkpoints.map(checkpoint=>checkpoint.done)})
+    const { checkpoints } = this.props;
+    this.setState({selected: checkpoints.map(checkpoint=>checkpoint.done)})
   }
 
   handleClick = (event) => {
@@ -37,7 +38,6 @@ class CapabilityTable extends React.Component {
     selected[event.target.name] = !selected[event.target.name]
     this.setState({selected})
   }
-
 
   render() {
     const { selected } = this.state
