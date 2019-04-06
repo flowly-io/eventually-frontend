@@ -12,7 +12,7 @@ const client = new ApolloClient({
 
     // Add authorization token if it exists
     // TODO: get auth from local state.
-    const token = "5ca91af6d3f97bf5e9f65753";
+    const token = "5ca9281dd78acaff9d807ba3";
     if (token) {
       context.headers.authorization = token;
     }
