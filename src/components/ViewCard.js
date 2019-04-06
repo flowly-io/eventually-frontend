@@ -16,6 +16,9 @@ function CapabilityGroup(props) {
           <Typography variant="h6">
             {capability.name}
           </Typography>
+          <Typography>
+            {capability.description}
+          </Typography>
           <CapabilityTable checkpoints={capability.checkpoints} />
         </div>
       );
@@ -88,7 +91,7 @@ class ViewCard extends React.Component {
     const { event } = this.props;
     const { capabilities, startDateTime, endDateTime } = event;
     return (
-      <div style={{ padding: 100 }}>
+      <div style={{ padding: 70 }}>
         <Card>
           <CardHeader variant="h1" title={event.name} />
           <CardContent>

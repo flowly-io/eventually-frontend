@@ -16,6 +16,7 @@ class EventOverviewCard extends React.Component {
     const { firstname, lastname } = organisers[0];
     const organiserString = `${firstname} ${lastname}${organisers.length > 1 ? ', ...' : ''}`;
     return (
+      <div style={{padding : 70}}>
         <Card>
           <CardActionArea component={Link} to={`/view/${event._id}`}>
             <CardContent>
@@ -36,6 +37,7 @@ class EventOverviewCard extends React.Component {
             </Button>
           </CardActions>
         </Card>
+      </div>
     );
   }
 }
