@@ -14,11 +14,13 @@ class EventOverviewCard extends React.Component {
     const { event } = this.props;
     const { organisers, startDateTime, endDateTime } = event;
     const { firstname, lastname } = organisers[0];
-    const organiserString = `${firstname} ${lastname}${organisers.length > 1 ? ', ...' : ''}`;
+    const organiserString = `${firstname} ${lastname}${
+      organisers.length > 1 ? ", ..." : ""
+    }`;
     return (
-      <div style={{padding : 70}}>
+      <div style={{ padding: 70 }}>
         <Card>
-          <CardActionArea component={Link} to={`/view/${event._id}`}>
+          <CardActionArea component={Link} to={`/events/${event._id}`}>
             <CardContent>
               <Typography variant="h5" component="h2">
                 {event.name}
@@ -41,6 +43,5 @@ class EventOverviewCard extends React.Component {
     );
   }
 }
-
 
 export default EventOverviewCard;
