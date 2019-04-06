@@ -45,7 +45,6 @@ class CapabilityTable extends React.Component {
 
     return (
       checkpoints.map((checkpoint, i) => {
-        console.log(selected[i])
         return (
           <TableRow>
             <TableCell padding="checkbox">
