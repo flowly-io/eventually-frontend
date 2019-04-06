@@ -23,12 +23,6 @@ function CapabilityGroup(props) {
   );
 }
 
-let counter = 0;
-function createData(obj) {
-  counter += 1;
-  return { id: counter, ...obj }
-}
-
 class CapabilityTable extends React.Component {
   state = {
     selected: []
