@@ -1,7 +1,8 @@
 import ApolloClient from "apollo-boost";
 
 const client = new ApolloClient({
-  uri: "https://eventually-alpha.herokuapp.com",
+  // uri: "https://eventually-alpha.herokuapp.com",
+  uri: "http://localhost:4000",
 
   /**
    * Configure the request to send the auth token with every request.
