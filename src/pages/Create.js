@@ -1,5 +1,8 @@
 import React from "react";
-import { TextField, Card, CardContent, CardHeader } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 import { DateTimePicker } from "material-ui-pickers";
 import moment from "moment";
 
