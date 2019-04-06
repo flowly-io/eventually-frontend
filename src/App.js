@@ -8,6 +8,7 @@ import SetName from "./pages/SetName";
 import SetDate from "./pages/SetDate";
 import SetAttendees from "./pages/SetAttendees";
 import ViewEvent from "./pages/ViewEvent";
+import ViewAllEvents from "./pages/ViewAllEvents";
 import Home from "./pages/Home";
 
 function AppRouter() {
@@ -46,7 +47,8 @@ function AppRouter() {
           <Route path="/create" exact component={SetName} />
           <Route path="/create/date" exact component={SetDate} />
           <Route path="/create/attendees" exact component={SetAttendees} />
-          <Route path="/view/:eventId" component={ViewEvent} />
+          <Route path="/events" exact component={ViewAllEvents} />
+          <Route path="/events/:id" component={ViewEvent} />
         </Switch>
       </div>
     </div>
