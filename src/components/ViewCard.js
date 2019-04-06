@@ -6,7 +6,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { TableRow, TableCell } from '@material-ui/core';
-
+import dateTimeRange from "../util/dateTimeRange";
 
 function CapabilityGroup(props) {
   return (
@@ -62,14 +62,14 @@ class ViewCard extends React.Component {
 
   render() {
     const { event } = this.props;
-    const { capabilities } = event;
+    const { capabilities, startDateTime, endDateTime } = event;
     return (
       <div style={{ padding: 100 }}>
         <Card>
           <CardHeader variant="h1" title={event.name} />
           <CardContent>
             <Typography variant="h5" color="textSecondary">
-              {event.startDateTime} - {event.endDateTime}
+                {dateTimeRange(startDateTime, endDateTime)}
             </Typography>
           </CardContent>
           <CardContent>
