@@ -1,13 +1,10 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import CardHeader from "@material-ui/core/CardHeader"
+import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
-import Edit from "@material-ui/icons/Edit";
-import { Table, TableRow, TableCell } from '@material-ui/core'
+import { TableRow, TableCell } from '@material-ui/core';
 
 
 function CapabilityGroup(props) {
@@ -20,9 +17,9 @@ function CapabilityGroup(props) {
           </Typography>
           <CapabilityTable checkpoints={capability.checkpoints} />
         </div>
-      )
+      );
     })
-  )
+  );
 }
 
 function CapabilityTable(props) {
@@ -39,7 +36,7 @@ function CapabilityTable(props) {
         </TableRow>
       );
     })
-  )
+  );
 }
 
 function ViewCard(props) {
