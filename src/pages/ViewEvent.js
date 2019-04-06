@@ -1,14 +1,14 @@
-import events from "../mockData/events";
-import { Query } from "react-apollo";
 import React from "react";
-import { GET_EVENT } from "../queries/events";
+import { Query } from "react-apollo";
+
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import ViewCard from "../components/ViewCard";
 
+import { GET_EVENT } from "../queries/events";
+
 function ViewEvent({ match }) {
   const id = match.params.id;
-  console.log(id);
   const eventQuery = GET_EVENT(id);
   return id ? (
     <Query query={eventQuery}>

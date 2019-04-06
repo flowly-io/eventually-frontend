@@ -59,3 +59,31 @@ export const GET_EVENT = eventId => {
   console.log(q);
   return gql(q);
 };
+
+export const GET_EVENTS_BY_ME = gql`
+  query {
+    eventsByMe {
+      _id
+      name
+      description
+      organisers {
+        _id
+        firstname
+        lastname
+      }
+      audiences
+      maxCapacity
+      capabilities {
+        _id
+        name
+        description
+        checkpoints {
+          description
+          done
+        }
+      }
+      startDateTime
+      endDateTime
+    }
+  }
+`;

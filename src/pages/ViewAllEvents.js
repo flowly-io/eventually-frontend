@@ -1,6 +1,6 @@
-import events from "../mockData/events";
-import { Query } from "react-apollo";
 import React from "react";
+import { Query } from "react-apollo";
+// GraphQL Queries
 import { GET_EVENTS } from "../queries/events";
 
 import ViewCard from "../components/ViewCard";
@@ -13,7 +13,7 @@ function ViewEvent() {
         if (loading) return <CircularProgress />;
         if (error) return `Error! ${error.message}`;
         const { events } = data;
-        return events.map(event => <ViewCard event={event} />);
+        return events.map((event, key) => <ViewCard event={event} key={key} />);
       }}
     </Query>
   );
