@@ -33,18 +33,12 @@ function AppRouter() {
           >
             Create
           </Button>
-          <Button component={Link}
-            to="/view/1"
-            style={{ fontWeight: 700, paddingLeft: 16, color: "white" }}
-          >
-            View something
-          </Button>
         </Toolbar>
       </AppBar>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/create" component={CreateEvent} />
-        <Route path="/view/" component={ViewEvent} />
+        <Route path="/view/:eventId" component={ViewEvent} />
       </Switch>
     </div>
   );
