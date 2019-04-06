@@ -71,17 +71,18 @@ class ViewCard extends React.Component {
     this.setState({capabilityCheckpointStates: capabilityCheckpointStates});
   }
 
-  getProgressPercent(capabilities) {
-    if (capabilities.length === 0) {
+  getProgressPercent() {
+    const { capabilityCheckpointStates } = this.state;
+    if (capabilityCheckpointStates.length === 0) {
       return 100;
     }
 
     let numCheckpoints = 0;
     let numCompletedCheckpoints = 0;
-    for (let capability of capabilities) {
-      for (let checkpoint of capability["checkpoints"]) {
+    for (let capability of capabilityCheckpointStates) {
+      for (let checkpoint of capability) {
         numCheckpoints++;
-        if (checkpoint.done) {
+        if (checkpoint) {
           numCompletedCheckpoints++;
         }
       }
@@ -104,7 +105,7 @@ class ViewCard extends React.Component {
             </Typography>
           </CardContent>
           <CardContent>
-            <LinearProgress variant="determinate" value={this.getProgressPercent(capabilities)} />
+            <LinearProgress variant="determinate" value={this.getProgressPercent()} />
           </CardContent>
           <CardContent>
         <CapabilityGroup capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)}/>
