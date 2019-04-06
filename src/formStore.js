@@ -39,5 +39,4 @@ export const setAudiences = action((audienceTypes, maxCapacity) => {
 
 autorun(() => {
   localStorage.setItem("event", JSON.stringify(store));
-  console.log(store.name);
 });

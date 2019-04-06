@@ -16,7 +16,6 @@ function ViewEvent({ match }) {
         if (loading) return <CircularProgress />;
         if (error) return `Error! ${error.message}`;
         const { event } = data;
-        console.log(data, event);
         return <ViewCard event={event} />;
       }}
     </Query>
