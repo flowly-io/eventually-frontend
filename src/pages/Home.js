@@ -3,36 +3,48 @@ import React from "react";
 import EventOverviewCard from "../components/EventOverviewCard";
 
 function Home() {
-  return <DummyEvents />;
-}
-
-function DummyEvents() {
   const events = [
     {
-      name: "Some other event",
-      organisers: [
-        {
-          firstname: "Ben",
-          lastname: "Yap"
-        },
-        {
-          firstname: "Mariusz",
-          lastname: "Skoneczko"
-        }
-      ],
-      startDateTime: "Wed 6 April, 9:30am",
-      endDateTime: "Wed 7 April, 3:30pm"
-    },
-    {
+      _id: "5ca823ce7c2d7803c0d44759",
       name: "WIRED games night",
       organisers: [
         {
-          firstname: "Eric",
-          lastname: "Jiang"
+          _id: "5ca823ce7c2d7803c0d44759",
+          firstname: "Ben",
+          lastname: "Yap",
+          email: "bwyap@outlook.com",
+          userType: "STUDENT"
         }
       ],
-      startDateTime: "Wed 10 April, 6:30pm",
-      endDateTime: "Wed 10 April, 8:30pm"
+      audiences: ["STUDENT"],
+      maxCapacity: 50,
+      capabilities: [
+        {
+          _id: "5ca823ce7c2d7803c0d44759",
+          name: "Catering",
+          description: "Food and drink for your event",
+          checkpoints: [
+            {
+              description: "Allocate budget",
+              done: true
+            },
+            {
+              description: "Find suitable caterer",
+              done: false
+            },
+            {
+              description: "Order food from caterers",
+              done: false
+            },
+            {
+              description: "Pay caterers",
+              done: false
+            }
+          ]
+        }
+      ],
+      startDateTime: "2019-04-10T06:00:00.000Z",
+      endDateTime: "2019-04-10T10:00:00.000Z"
     }
   ];
 
