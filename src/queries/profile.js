@@ -7,6 +7,7 @@ export const GET_MY_PROFILE = gql`
       firstname
       lastname
       email
+      groups
     }
   }
 `;
