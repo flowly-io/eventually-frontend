@@ -3,7 +3,9 @@ import { Route, Link, Switch } from "react-router-dom";
 
 import { AppBar, Typography, Toolbar } from "@material-ui/core";
 
-import CreateEvent from "./pages/Create";
+import SetName from "./pages/SetName";
+import SetDate from "./pages/SetDate";
+import SetAttendees from "./pages/SetAttendees";
 
 function Home() {
   return <h2>Home</h2>;
@@ -32,10 +34,14 @@ function AppRouter() {
           </Link>
         </Toolbar>
       </AppBar>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/create" component={CreateEvent} />
-      </Switch>
+      <div style={{ height: "100vh" }}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/create" exact component={SetName} />
+          <Route path="/create/date" exact component={SetDate} />
+          <Route path="/create/attendees" exact component={SetAttendees} />
+        </Switch>
+      </div>
     </div>
   );
 }

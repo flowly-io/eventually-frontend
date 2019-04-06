@@ -5,12 +5,13 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 
 import GraphqlClient from "./config/graphql";
 import { ApolloProvider } from "react-apollo";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "material-ui-pickers";
+import history from "./config/history";
 
 const theme = createMuiTheme({
   palette: {
@@ -26,6 +27,17 @@ const theme = createMuiTheme({
       dark: "#00437e",
       contrastText: "#ffffff"
     }
+  },
+  overrides: {
+    MuiInput: {
+      input: {
+        fontSize: 32
+      },
+      formControl: { width: "100%", paddingTop: 16 }
+    },
+    MuiInputLabel: {
+      root: { fontSize: 32 }
+    }
   }
 });
 
@@ -33,7 +45,7 @@ ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <ApolloProvider client={GraphqlClient}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <Router>
+        <Router history={history}>
           <App />
         </Router>
       </MuiPickersUtilsProvider>
