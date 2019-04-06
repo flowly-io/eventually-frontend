@@ -33,7 +33,7 @@ class CreateEvent extends React.Component {
               value={fromDateTime}
               disablePast
               onChange={val =>
-                this.setState({ fromDateTime: val, toDateTime: fromDateTime })
+                this.setState({ fromDateTime: val, toDateTime: val })
               }
               label="Event Start"
               showTodayButton
