@@ -15,15 +15,15 @@ import { MuiPickersUtilsProvider } from "material-ui-pickers";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "#ff5b83",
-      main: "#e31457",
+      light: "#51c449",
+      main: "#029216",
       dark: "#aa002f",
       contrastText: "#ffffff"
     },
     secondary: {
-      light: "#549be0",
+      light: "#51c449",
       main: "#006dae",
-      dark: "#00437e",
+      dark: "#006300",
       contrastText: "#ffffff"
     }
   }
