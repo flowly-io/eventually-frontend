@@ -12,3 +12,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.fancy-render-animation {
+  position: relative;
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    top: 10vh;
+  }
+
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}

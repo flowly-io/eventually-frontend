@@ -31,6 +31,7 @@ export default class SetDate extends React.Component {
 
     return (
       <div
+        className="fancy-render-animation"
         style={{
           maxWidth: "50vw",
           minWidth: 300,
