@@ -13,7 +13,7 @@ class EventOverviewCard extends React.Component {
     const { event } = this.props;
     const { organisers } = event;
     const { firstname, lastname } = organisers[0];
-    const organiserString = firstname + " " + lastname + (organisers.length > 1 ? ', ...' : '');
+    const organiserString = `${firstname} ${lastname}${organisers.length > 1 ? ', ...' : ''}`;
     return (
         <Card>
           <CardActionArea component={Link} to={`/view/${event._id}`}>
