@@ -1,41 +1,44 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 
-function Index() {
+import { AppBar, Typography, Toolbar } from "@material-ui/core";
+
+function Home() {
   return <h2>Home</h2>;
 }
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
+function CreateEvent() {
+  return <h2>Create an event</h2>;
 }
 
 function AppRouter() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about/">About</Link>
-            </li>
-            <li>
-              <Link to="/users/">Users</Link>
-            </li>
-          </ul>
-        </nav>
+    <>
+      <AppBar color="primary" position="sticky">
+        <Toolbar style={{ padding: 16 }}>
+          <Typography variant="h3" style={{ color: "white", flexGrow: 1 }}>
+            eVentually
+          </Typography>
+          <Link
+            to="/"
+            style={{ fontWeight: 700, paddingLeft: 16, color: "white" }}
+          >
+            Home
+          </Link>
 
-        <Route path="/" exact component={Index} />
-        <Route path="/about/" component={About} />
-        <Route path="/users/" component={Users} />
-      </div>
-    </Router>
+          <Link
+            to="/create"
+            style={{ fontWeight: 700, paddingLeft: 16, color: "white" }}
+          >
+            Create
+          </Link>
+        </Toolbar>
+      </AppBar>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/create" component={CreateEvent} />
+      </Switch>
+    </>
   );
 }
 
