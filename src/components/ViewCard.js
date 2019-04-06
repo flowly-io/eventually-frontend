@@ -5,7 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { TableRow, TableCell } from '@material-ui/core';
+import { Button, CardActions, TableRow, TableCell } from '@material-ui/core';
+import Delete from "@material-ui/icons/Delete"
 import dateTimeRange from "../util/dateTimeRange";
 
 function CapabilityGroup(props) {
@@ -14,6 +15,7 @@ function CapabilityGroup(props) {
     capabilities.map((capability, capabilityIndex) => {
       return (
         <div>
+        <div style={{padding : 25}}>
           <Typography variant="h6">
             {capability.name}
           </Typography>
@@ -22,6 +24,12 @@ function CapabilityGroup(props) {
           </Typography>
           <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)}/>
         </div>
+        <CardActions>
+        <Button size="small" color="primary">
+          <Delete /> Remove
+        </Button>
+      </CardActions>
+      </div>
       );
     })
   );
