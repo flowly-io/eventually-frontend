@@ -14,7 +14,7 @@ export default class SetDate extends React.Component {
   };
 
   componentDidMount() {
-    this.nameRef.current.value = formStore.store.name;
+    this.nameRef.current.value = formStore.store.name || "";
   }
 
   render() {
