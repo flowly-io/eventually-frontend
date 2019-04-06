@@ -17,7 +17,7 @@ const events = [
         {
           _id: "5ca823ce7c2d7803c0d44759",
           name: "Catering",
-          description: "Food and drink for your event",
+          description: "Bin and drink for your event",
           checkpoints: [
             {
               description: "Allocate budget",
@@ -36,7 +36,30 @@ const events = [
               done: false
             }
           ]
-        }
+        },
+        {
+            _id: "5ca823ce7c2d7803c0d44759",
+            name: "Bin",
+            description: "Bin and drink for your event",
+            checkpoints: [
+              {
+                description: "Allocate bin",
+                done: false
+              },
+              {
+                description: "Find suitable bin",
+                done: true
+              },
+              {
+                description: "Order Bin from caterers",
+                done: true
+              },
+              {
+                description: "Pay bin",
+                done: false
+              }
+            ]
+          }
       ],
       startDateTime: "2019-04-10T06:00:00.000Z",
       endDateTime: "2019-04-10T10:00:00.000Z"
