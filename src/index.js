@@ -9,6 +9,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import GraphqlClient from "./config/graphql";
 import { ApolloProvider } from "react-apollo";
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
 
 const theme = createMuiTheme({
   palette: {
@@ -30,9 +32,11 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <ApolloProvider client={GraphqlClient}>
-      <Router>
-        <App />
-      </Router>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <Router>
+          <App />
+        </Router>
+      </MuiPickersUtilsProvider>
     </ApolloProvider>
   </MuiThemeProvider>,
   document.getElementById("root")
