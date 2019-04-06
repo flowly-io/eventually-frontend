@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import GraphqlClient from "./config/graphql";
