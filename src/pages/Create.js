@@ -32,7 +32,9 @@ class CreateEvent extends React.Component {
             <DateTimePicker
               value={fromDateTime}
               disablePast
-              onChange={val => this.setState({ fromDateTime: val })}
+              onChange={val =>
+                this.setState({ fromDateTime: val, toDateTime: fromDateTime })
+              }
               label="Event Start"
               showTodayButton
             />
@@ -41,6 +43,7 @@ class CreateEvent extends React.Component {
               disablePast
               onChange={val => this.setState({ toDateTime: val })}
               label="Event End"
+              minDate={fromDateTime}
               showTodayButton
             />
             {`Event Duration: ${eventDuration} hours`}
