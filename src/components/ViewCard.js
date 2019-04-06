@@ -16,6 +16,9 @@ function CapabilityGroup(props) {
           <Typography variant="h6">
             {capability.name}
           </Typography>
+          <Typography>
+            {capability.description}
+          </Typography>
           <CapabilityTable checkpoints={capability.checkpoints} />
         </div>
       );

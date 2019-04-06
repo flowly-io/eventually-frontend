@@ -17,7 +17,7 @@ const events = [
         {
           _id: "5ca823ce7c2d7803c0d44759",
           name: "Catering",
-          description: "Bin and drink for your event",
+          description: "Food and drink for your event",
           checkpoints: [
             {
               description: "Allocate budget",
