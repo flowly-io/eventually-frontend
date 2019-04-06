@@ -6,7 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
-import CreateEvent from "./pages/Create";
+import SetName from "./pages/SetName";
+import SetDate from "./pages/SetDate";
+import SetAttendees from "./pages/SetAttendees";
 import ViewEvent from "./pages/ViewEvent";
 import Home from "./pages/Home";
 
@@ -35,11 +37,15 @@ function AppRouter() {
           </Button>
         </Toolbar>
       </AppBar>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/create" component={CreateEvent} />
-        <Route path="/view/:eventId" component={ViewEvent} />
-      </Switch>
+      <div style={{ height: "100vh" }}>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/create" exact component={SetName} />
+          <Route path="/create/date" exact component={SetDate} />
+          <Route path="/create/attendees" exact component={SetAttendees} />
+          <Route path="/view/:eventId" component={ViewEvent} />
+        </Switch>
+      </div>
     </div>
   );
 }
