@@ -8,7 +8,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import GraphqlClient from "./config/graphql";
+import { client } from "./config/graphql";
 import { ApolloProvider } from "react-apollo";
 import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "material-ui-pickers";
@@ -32,7 +32,7 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <ApolloProvider client={GraphqlClient}>
+    <ApolloProvider client={client}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <Router>
           <App />
