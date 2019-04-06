@@ -74,6 +74,8 @@ class ViewCard extends React.Component {
           </CardContent>
           <CardContent>
             <LinearProgress variant="determinate" value={this.getProgressPercent(capabilities)} />
+          </CardContent>
+          <CardContent>
             <CapabilityGroup capabilities={capabilities} />
           </CardContent>
         </Card>
