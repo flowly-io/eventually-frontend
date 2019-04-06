@@ -50,7 +50,6 @@ function Home() {
               </div>
             );
           const { eventsByMe } = data;
-          console.log(data, eventsByMe);
           return eventsByMe.map((event, key) => (
             <EventOverviewCard event={event} key={key} />
           ));
