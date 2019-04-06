@@ -88,7 +88,7 @@ class ViewCard extends React.Component {
     const { event } = this.props;
     const { capabilities } = event;
     return (
-      <div style={{ padding: 100 }}>
+      <div style={{ padding: 70 }}>
         <Card>
           <CardHeader variant="h1" title={event.name} />
           <CardContent>
