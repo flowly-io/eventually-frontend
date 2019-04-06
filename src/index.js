@@ -5,21 +5,34 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import blue from "@material-ui/core/colors/blue";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import GraphqlClient from "./config/graphql";
 import { ApolloProvider } from "react-apollo";
 
 const theme = createMuiTheme({
   palette: {
-    primary: blue
+    primary: {
+      light: "#ff5b83",
+      main: "#e31457",
+      dark: "#aa002f",
+      contrastText: "#ffffff"
+    },
+    secondary: {
+      light: "#549be0",
+      main: "#006dae",
+      dark: "#00437e",
+      contrastText: "#ffffff"
+    }
   }
 });
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <ApolloProvider client={GraphqlClient}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ApolloProvider>
   </MuiThemeProvider>,
   document.getElementById("root")
