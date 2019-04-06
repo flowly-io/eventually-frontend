@@ -2,6 +2,7 @@ import events from "../mockData/events";
 import { Query } from "react-apollo";
 import React from "react";
 import { GET_EVENT } from "../queries/events";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import ViewCard from "../components/ViewCard";
 
@@ -12,7 +13,7 @@ function ViewEvent({ match }) {
   return id ? (
     <Query query={eventQuery}>
       {({ loading, error, data }) => {
-        if (loading) return "Loading...";
+        if (loading) return <CircularProgress />;
         if (error) return `Error! ${error.message}`;
         const { event } = data;
         console.log(data, event);
