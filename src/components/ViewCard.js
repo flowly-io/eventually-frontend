@@ -23,21 +23,45 @@ function CapabilityGroup(props) {
   );
 }
 
-function CapabilityTable(props) {
-  return (
-    props.checkpoints.map((checkpoint, i) => {
-      return (
-        <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox />
-          </TableCell>
-          <TableCell key={i} >
-            {checkpoint.description}
-          </TableCell>
-        </TableRow>
-      );
-    })
-  );
+class CapabilityTable extends React.Component {
+  state = {
+    selected: []
+  }
+
+  componentDidMount () {
+    const { checkpoints } = this.props;
+    this.setState({selected: checkpoints.map(checkpoint=>checkpoint.done)})
+  }
+
+  handleClick = (event) => {
+    let { selected } = this.state;
+    selected[event.target.name] = !selected[event.target.name]
+    this.setState({selected})
+  }
+
+  render() {
+    const { selected } = this.state
+    const { checkpoints } = this.props;
+
+    return (
+      checkpoints.map((checkpoint, i) => {
+        return (
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                checked={selected[i] || false}
+                name={i}
+                onChange={this.handleClick}
+              />
+            </TableCell>
+            <TableCell key={i} >
+              {checkpoint.description}
+            </TableCell>
+          </TableRow>
+        );
+      })
+    )
+  };
 }
 
 class ViewCard extends React.Component {
