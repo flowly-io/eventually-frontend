@@ -27,7 +27,28 @@ function Home() {
                 <h2>Loading your events...</h2>
               </div>
             );
-          if (error) return `Error! ${error.message}`;
+          if (error)
+            return (
+              <div
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column"
+                }}
+              >
+                <h2>An error has occuredh</h2>
+                <b>Error Message: {error.message}</b>
+                <pre
+                  style={{
+                    maxWidth: "80%"
+                  }}
+                >
+                  {error.stack}
+                </pre>
+              </div>
+            );
           const { eventsByMe } = data;
           console.log(data, eventsByMe);
           return eventsByMe.map((event, key) => (

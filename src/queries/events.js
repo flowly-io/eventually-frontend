@@ -77,10 +77,6 @@ export const GET_EVENTS_BY_ME = gql`
         _id
         name
         description
-        checkpoints {
-          description
-          done
-        }
       }
       startDateTime
       endDateTime
