@@ -7,10 +7,7 @@ import ViewCard from "../components/ViewCard";
 
 import { GET_EVENT } from "../queries/events";
 
-import events from "../mockData/events";
-
-function ViewEvent(/*{ match }*/) {
-  /*
+function ViewEvent({ match }) {
   const id = match.params.id;
   const eventQuery = GET_EVENT(id);
   return id ? (
@@ -26,9 +23,6 @@ function ViewEvent(/*{ match }*/) {
   ) : (
     <div>Unknown Id</div>
   );
-  */
-
-  return <ViewCard event={events[0]} />;
 }
 
 export default ViewEvent;
