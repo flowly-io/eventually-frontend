@@ -49,7 +49,6 @@ class ViewCard extends React.Component {
     let numCheckpoints = 0;
     let numCompletedCheckpoints = 0;
     for (let capability of capabilities) {
-      console.log(capability);
       for (let checkpoint of capability["checkpoints"]) {
         numCheckpoints++;
         if (checkpoint.done) {
