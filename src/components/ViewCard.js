@@ -9,15 +9,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Edit from "@material-ui/icons/Edit";
 import { Table, TableRow, TableCell } from '@material-ui/core'
 
+
 function CapabilityGroup(props) {
   return (
-    props.caps.map(cap => {
+    props.capabilities.map(capability => {
       return (
         <div>
           <Typography variant="h6">
-            {cap.name}
+            {capability.name}
           </Typography>
-          <CapabilityTable checks={cap.checkpoints} />
+          <CapabilityTable checkpoints={capability.checkpoints} />
         </div>
       )
     })
@@ -26,14 +27,14 @@ function CapabilityGroup(props) {
 
 function CapabilityTable(props) {
   return (
-    props.checks.map((chk, i) => {
+    props.checkpoints.map((checkpoint, i) => {
       return (
         <TableRow>
           <TableCell padding="checkbox">
             <Checkbox />
           </TableCell>
           <TableCell key={i} >
-            {chk.description}
+            {checkpoint.description}
           </TableCell>
         </TableRow>
       );
@@ -52,7 +53,7 @@ function ViewCard(props) {
           </Typography>
         </CardContent>
         <CardContent>
-          <CapabilityGroup caps={props.event.capabilities} />
+          <CapabilityGroup capabilities={props.event.capabilities} />
         </CardContent>
       </Card>
     </div>
