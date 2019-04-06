@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
 
-import AppBar from "@material-ui/core/AppBar";
-import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
@@ -15,28 +13,33 @@ import Home from "./pages/Home";
 function AppRouter() {
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <AppBar color="primary" position="sticky">
-        <Toolbar style={{ padding: 16 }}>
-          <Typography variant="h3" style={{ color: "white", flexGrow: 1 }}>
-            eVentually
-          </Typography>
-          <Button
-            component={Link}
-            to="/"
-            style={{ fontWeight: 700, paddingLeft: 16, color: "white" }}
-          >
-            Home
-          </Button>
+      <Toolbar style={{ padding: 16 }}>
+        <img
+          src="/eventually.png"
+          alt="The logo for team eVentually"
+          style={{ height: 96 }}
+        />
+        <span style={{ flexGrow: 1 }} />
+        <Button
+          color="primary"
+          variant="contained"
+          component={Link}
+          to="/"
+          style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        >
+          Home
+        </Button>
 
-          <Button
-            component={Link}
-            to="/create"
-            style={{ fontWeight: 700, paddingLeft: 16, color: "white" }}
-          >
-            Create
-          </Button>
-        </Toolbar>
-      </AppBar>
+        <Button
+          color="primary"
+          variant="contained"
+          component={Link}
+          to="/create"
+          style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        >
+          Create
+        </Button>
+      </Toolbar>
       <div style={{ height: "100vh" }}>
         <Switch>
           <Route path="/" exact component={Home} />

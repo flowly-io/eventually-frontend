@@ -18,13 +18,13 @@ const theme = createMuiTheme({
     primary: {
       light: "#51c449",
       main: "#029216",
-      dark: "#aa002f",
+      dark: "#006300",
       contrastText: "#ffffff"
     },
     secondary: {
-      light: "#51c449",
+      light: "#549be0",
       main: "#006dae",
-      dark: "#006300",
+      dark: "#00437e",
       contrastText: "#ffffff"
     }
   },
@@ -37,6 +37,11 @@ const theme = createMuiTheme({
     },
     MuiInputLabel: {
       root: { fontSize: 32 }
+    },
+    MuiToolbar: {
+      root: {
+        backgroundColor: "#ffffff"
+      }
     }
   }
 });
