@@ -7,11 +7,12 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Edit from "@material-ui/icons/Edit";
+import dateTimeRange from "../util/dateTimeRange";
 
 class EventOverviewCard extends React.Component {
   render() {
     const { event } = this.props;
-    const { organisers } = event;
+    const { organisers, startDateTime, endDateTime } = event;
     const { firstname, lastname } = organisers[0];
     const organiserString = `${firstname} ${lastname}${organisers.length > 1 ? ', ...' : ''}`;
     return (
@@ -22,7 +23,7 @@ class EventOverviewCard extends React.Component {
                 {event.name}
               </Typography>
               <Typography color="textSecondary">
-                {event.startDateTime} - {event.endDateTime}
+                {dateTimeRange(startDateTime, endDateTime)}
               </Typography>
               <Typography color="textSecondary">
                 Organised by: {organiserString}
