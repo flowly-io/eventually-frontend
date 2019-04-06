@@ -23,16 +23,42 @@ function CapabilityGroup(props) {
   );
 }
 
+let counter = 0;
+function createData(obj) {
+  counter += 1;
+  return { id: counter, ...obj }
+}
+
 class CapabilityTable extends React.Component {
+  state = {
+    selected: []
+  }
+
+  componentDidMount () {
+    this.setState({selected: this.props.checkpoints.map(checkpoint=>checkpoint.done)})
+  }
+
+  handleClick = (event) => {
+    let { selected } = this.state;
+    selected[event.target.name] = !selected[event.target.name]
+    this.setState({selected})
+  }
+
+
   render() {
+    const { selected } = this.state
     const { checkpoints } = this.props;
+
     return (
       checkpoints.map((checkpoint, i) => {
+        console.log(selected[i])
         return (
           <TableRow>
             <TableCell padding="checkbox">
               <Checkbox
-                checked={checkpoint.done}
+                checked={selected[i] || false}
+                name={i}
+                onChange={this.handleClick}
               />
             </TableCell>
             <TableCell key={i} >
