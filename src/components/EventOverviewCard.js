@@ -10,19 +10,19 @@ import Edit from "@material-ui/icons/Edit";
 
 class EventOverviewCard extends React.Component {
   render() {
-
-    const organiserString = this.props.event.organisers[0]["firstname"]
-          + " " + this.props.event.organisers[0]["lastname"]
-          + (this.props.event.organisers.length > 1 ? ', ...' : '');
+    const { event } = this.props;
+    const { organisers } = event;
+    const { firstname, lastname } = organisers[0];
+    const organiserString = firstname + " " + lastname + (organisers.length > 1 ? ', ...' : '');
     return (
         <Card>
-        <CardActionArea component={Link} to={`/view/${this.props.event._id}`}>
+          <CardActionArea component={Link} to={`/view/${event._id}`}>
             <CardContent>
               <Typography variant="h5" component="h2">
-                {this.props.event.name}
+                {event.name}
               </Typography>
               <Typography color="textSecondary">
-                {this.props.event.startDateTime} - {this.props.event.endDateTime}
+                {event.startDateTime} - {event.endDateTime}
               </Typography>
               <Typography color="textSecondary">
                 Organised by: {organiserString}
