@@ -35,13 +35,6 @@ function AppRouter() {
           >
             Create
           </Button>
-          <Button
-            component={Link}
-            to="/view/1"
-            style={{ fontWeight: 700, paddingLeft: 16, color: "white" }}
-          >
-            View something
-          </Button>
         </Toolbar>
       </AppBar>
       <div style={{ height: "100vh" }}>
@@ -50,7 +43,7 @@ function AppRouter() {
           <Route path="/create" exact component={SetName} />
           <Route path="/create/date" exact component={SetDate} />
           <Route path="/create/attendees" exact component={SetAttendees} />
-          <Route path="/view" component={ViewEvent} />
+          <Route path="/view/:eventId" component={ViewEvent} />
         </Switch>
       </div>
     </div>
