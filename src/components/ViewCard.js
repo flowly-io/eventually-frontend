@@ -6,33 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Grid, CardActions, TableRow, TableCell } from '@material-ui/core';
-import Dialog from "@material-ui/core/Dialog";
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import { Grid, CardActions, Button, TableRow, TableCell } from '@material-ui/core';
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
 import Delete from "@material-ui/icons/Delete"
 
 
 import { REMOVE_CAPABILITY } from '../mutations/capabilities';
-
-import { GET_CAP } from "../queries/events";
-
-import { CircularProgress } from "@material-ui/core";
-
-function capabilityMenus () {
-  return (
-      <Query query={GET_EVENTS}>
-      {({ loading, error, data }) => {
-        if (loading) return <CircularProgress />;
-        if (error) return `Error! ${error.message}`;
-        const { events } = data;
-        return events.map((event, key) => <ViewCard event={event} key={key} />);
-      }}
-    </Query>
-  );
-}
 
 function groupsToIcons(groups) {
   return groups.map(group => getIcon(group.name));
@@ -124,8 +104,6 @@ class ViewCard extends React.Component {
     });
     this.state = {
       capabilityCheckpointStates: capabilityCheckpointStates,
-      addCapabilityDialogOpen: false,
-      capabilityToAdd: "",
     };
   }
 
@@ -155,18 +133,10 @@ class ViewCard extends React.Component {
     return Math.floor(100 * numCompletedCheckpoints / numCheckpoints);
   }
 
-  handleAddCapabilityClick() {
-    this.setState({addCapabilityDialogOpen: true});
-  }
-
-  handleAddCapabilityChange(event) {
-    this.setState({capabilityToAdd: event.target.value});
-  }
-
   render() {
     const { event } = this.props;
     const { capabilities, startDateTime, endDateTime } = event;
-    const { capabilityCheckpointStates, addCapabilityDialogOpen, capabilityToAdd} = this.state;
+    const { capabilityCheckpointStates } = this.state;
     return (
       <div style={{ padding: 70 }}>
         <Card>
@@ -181,28 +151,6 @@ class ViewCard extends React.Component {
           </CardContent>
           <CardContent>
             <CapabilityGroup event_id={event._id} capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)} />
-          </CardContent>
-        <CardContent style={{ marginTop: "-2rem" }}>
-          <Button
-            color="primary"
-            variant="outlined">
-              <AddIcon /> Add capability
-          </Button>
-          <Dialog
-            open={addCapabilityDialogOpen}
-          >
-            <DialogTitle>Add capability</DialogTitle>
-            <DialogContent>
-              <Select
-                value={capabilityToAdd}
-                onChange{this.handleAddCapabiltiyChange}
-              >
-                
-
-              </Select>
-            </DialogContent>
-
-            </Dialog>
           </CardContent>
         </Card>
       </div>
