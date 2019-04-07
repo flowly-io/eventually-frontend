@@ -33,11 +33,6 @@ class EventOverviewCard extends React.Component {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              <Edit /> Edit
-            </Button>
-          </CardActions>
         </Card>
       </div>
     );
