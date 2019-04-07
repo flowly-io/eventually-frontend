@@ -19,7 +19,14 @@ function AppRouter() {
   return (
     <div style={{ height: "100vh" }}>
       <AppBar />
-      <div style={{ height: "100vh" }}>
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          minWidth: "60%"
+        }}
+      >
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" component={Profile} />

@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import { GET_EVENTS } from "../queries/events";
 
 import ViewCard from "../components/ViewCard";
-import Loader from "../Loader";
+import Loader from "../components/Loader";
 
 function ViewEvent() {
   return (
