@@ -22,6 +22,13 @@ export const FIELDS_ON_EVENT = gql`
           done
         }
       }
+      ... on CapabilityInstance {
+        template {
+          delegateGroups {
+            name
+          }
+        }
+      }
     }
     startDateTime
     endDateTime

@@ -8,20 +8,22 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { Grid, Button, CardActions, TableRow, TableCell } from '@material-ui/core';
 import Delete from "@material-ui/icons/Delete"
 import dateTimeRange from "../util/dateTimeRange";
+import getIcon from "../util/groups";
 
-function deleteEvent() {
-  console.log("Deleted! (but not really)")
+function groupsToIcons(groups) {
+  return groups.map(group => getIcon(group.name));
 }
 
 class CapabilityGroup extends React.Component {
-  deleteCapability = (id) => {
-    console.log(`Deleted capability ${id}! (but not really)`)
+  removeCapability = (id) => {
+    console.log(`Removed capability ${id}! (but not really)`)
   }
   
   render() {
     const { capabilities, capabilityCheckpointStates, handleCheckboxes } = this.props;
     return (
       capabilities.map((capability, capabilityIndex) => {
+        const { delegateGroups } = capability.template;
         return (
           <div>
             <div style={{ padding: 25 }}>
@@ -33,7 +35,7 @@ class CapabilityGroup extends React.Component {
                 </Grid>
                 <Grid item>
                 <CardActions>
-                  <Button onClick={() => this.deleteCapability(capability._id)} size="small" color="primary">
+                  <Button onClick={() => this.removeCapability(capability._id)} size="small" color="primary">
                     <Delete /> Remove
                   </Button>
                 </CardActions>
@@ -42,6 +44,9 @@ class CapabilityGroup extends React.Component {
   
               <Typography>
                 {capability.description}
+              </Typography>
+              <Typography variant="subtitle2" style={{ display: 'flex' }}>
+                <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span><span>{groupsToIcons(delegateGroups)}</span>
               </Typography>
               <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)} />
             </div>
@@ -52,13 +57,6 @@ class CapabilityGroup extends React.Component {
     );
   }
 }
-
-// function CapabilityGroup(props) {
-
-
-  
-  
-// }
 
 class CapabilityTable extends React.Component {
   render() {
