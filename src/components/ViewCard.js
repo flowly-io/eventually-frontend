@@ -234,7 +234,7 @@ class ViewCard extends React.Component {
       <div
         style={{
           padding: 70,
-          maxWidth: "30vw",
+          width: "50vw",
           minWidth: 300,
           margin: "0 auto"
         }}
