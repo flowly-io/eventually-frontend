@@ -24,6 +24,7 @@ export const GET_GROUP_CAPABILITIES_AND_INSTANCES = gql`
         name
         ... on EventCapabilityInstance {
           event {
+            _id
             name
           }
         }

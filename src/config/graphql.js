@@ -1,6 +1,31 @@
 import ApolloClient from "apollo-boost";
 
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+  defaultDataIdFromObject
+} from "apollo-cache-inmemory";
+
+import introspectionQueryResultData from "./fragmentTypes.json";
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+});
+
+const cache = new InMemoryCache({
+  fragmentMatcher,
+  dataIdFromObject: object => {
+    switch (object.__typename) {
+      case "EventCapabilityInstance":
+        return object.event.name;
+      default:
+        return defaultDataIdFromObject(object);
+    }
+  }
+});
+
 const client = new ApolloClient({
+  cache,
   uri: "https://eventually-alpha.herokuapp.com",
   // uri: "http://localhost:4000",
 

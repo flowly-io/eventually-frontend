@@ -1,5 +1,6 @@
 import React from "react";
 import { Query, withApollo } from "react-apollo";
+import { Link } from "react-router-dom";
 
 import {
   GET_MY_PROFILE,
@@ -13,7 +14,12 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import Badge from "@material-ui/core/Badge";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import getIcon from "../util/groups";
 
@@ -116,18 +122,33 @@ class Profile extends React.Component {
                           {Object.keys(capabilities).map((key, i) => {
                             const capability = capabilities[key];
                             return (
-                              <ListItem
-                                button
-                                key={`c-${i}`}
-                                style={{ marginBottom: "1rem" }}
-                              >
-                                <Badge
-                                  color="secondary"
-                                  badgeContent={capability.length}
+                              <ExpansionPanel key={i}>
+                                <ExpansionPanelSummary
+                                  expandIcon={<ExpandMoreIcon />}
                                 >
-                                  <Typography variant="h6">{key}</Typography>
-                                </Badge>
-                              </ListItem>
+                                  <Badge
+                                    color="secondary"
+                                    badgeContent={capability.length}
+                                    style={{ paddingRight: "0.5rem" }}
+                                  >
+                                    <Typography variant="h6">{key}</Typography>
+                                  </Badge>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                  <List>
+                                    {capability.map((c, i) => (
+                                      <ListItem
+                                        key={i}
+                                        button
+                                        component={Link}
+                                        to={`/events/${c.event._id}`}
+                                      >
+                                        <ListItemText primary={c.event.name} />
+                                      </ListItem>
+                                    ))}
+                                  </List>
+                                </ExpansionPanelDetails>
+                              </ExpansionPanel>
                             );
                           })}
                         </List>
@@ -167,14 +188,14 @@ class Profile extends React.Component {
                   </CardContent>
                 </Card>
 
-                <Card style={{ marginBottom: "2rem" }}>
+                {/* <Card style={{ marginBottom: "2rem" }}>
                   <CardContent>
-                    <Typography variant="h5" style={{ paddingBottom: "1rem" }}>
-                      My capabilities
-                    </Typography>
-                    {capabiltyInstances}
                   </CardContent>
-                </Card>
+                </Card> */}
+                <Typography variant="h5" style={{ paddingBottom: "1rem" }}>
+                  My capabilities
+                </Typography>
+                {capabiltyInstances}
               </>
             );
           }}
