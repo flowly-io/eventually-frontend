@@ -9,42 +9,28 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { Grid, CardActions, TableRow, TableCell } from '@material-ui/core';
 import Dialog from "@material-ui/core/Dialog";
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import AddIcon from '@material-ui/icons/Add';
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
-import { Query } from "react-apollo";
 import Delete from "@material-ui/icons/Delete"
 
 
 import { REMOVE_CAPABILITY } from '../mutations/capabilities';
-import { GET_CAPABILITIES } from "../queries/events";
+
+import { GET_CAP } from "../queries/events";
 
 import { CircularProgress } from "@material-ui/core";
 
-function CapabilitySelect (props) {
-  const { handleAddCapabilityChange, capabilityToAdd } = props;
+function capabilityMenus () {
   return (
-      <Query query={GET_CAPABILITIES}>
-;
+      <Query query={GET_EVENTS}>
       {({ loading, error, data }) => {
         if (loading) return <CircularProgress />;
         if (error) return `Error! ${error.message}`;
-        const { capabilities } = data;
-        return (
-        <Select
-          style={{ width: "90%" }}
-          value={capabilityToAdd}
-          onChange={(event) => handleAddCapabilityChange(event)}
-            >
-        {capabilities.map((capability, key) => <MenuItem value={capability._id} key={key}>{capability.name}</MenuItem>)}
-        </Select>
-        )
+        const { events } = data;
+        return events.map((event, key) => <ViewCard event={event} key={key} />);
       }}
-      </Query>
+    </Query>
   );
 }
 
@@ -174,7 +160,6 @@ class ViewCard extends React.Component {
   }
 
   handleAddCapabilityChange(event) {
-    console.log(event);
     this.setState({capabilityToAdd: event.target.value});
   }
 
@@ -200,18 +185,21 @@ class ViewCard extends React.Component {
         <CardContent style={{ marginTop: "-2rem" }}>
           <Button
             color="primary"
-            variant="outlined"
-            onClick={() => this.handleAddCapabilityClick()}
-            >
+            variant="outlined">
               <AddIcon /> Add capability
           </Button>
           <Dialog
             open={addCapabilityDialogOpen}
-            fullWidth={true}
           >
             <DialogTitle>Add capability</DialogTitle>
             <DialogContent>
-                <CapabilitySelect handleAddCapabilityChange={this.handleAddCapabilityChange} capabilityToAdd={capabilityToAdd} />
+              <Select
+                value={capabilityToAdd}
+                onChange{this.handleAddCapabiltiyChange}
+              >
+                
+
+              </Select>
             </DialogContent>
 
             </Dialog>
