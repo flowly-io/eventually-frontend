@@ -4,13 +4,13 @@ import { Query } from "react-apollo";
 import { GET_EVENTS } from "../queries/events";
 
 import ViewCard from "../components/ViewCard";
-import { CircularProgress } from "@material-ui/core";
+import Loader from "../Loader";
 
 function ViewEvent() {
   return (
     <Query query={GET_EVENTS}>
       {({ loading, error, data }) => {
-        if (loading) return <CircularProgress />;
+        if (loading) return <Loader />;
         if (error) return `Error! ${error.message}`;
         const { events } = data;
         return events.map((event, key) => <ViewCard event={event} key={key} />);
