@@ -1,0 +1,1 @@
+{"__schema":{"types":[{"kind":"INTERFACE","name":"CapabilityInterface","possibleTypes":[{"name":"Capability"},{"name":"CapabilityInstance"},{"name":"EventCapabilityInstance"}]},{"kind":"INTERFACE","name":"CheckpointInterface","possibleTypes":[{"name":"Checkpoint"},{"name":"TodoCheckpoint"}]}]}}
