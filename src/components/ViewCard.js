@@ -1,4 +1,5 @@
 import React from "react";
+import  { Mutation } from "react-apollo";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +11,8 @@ import Delete from "@material-ui/icons/Delete"
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
 
+import { REMOVE_CAPABILITY } from '../mutations/capabilities';
+
 function groupsToIcons(groups) {
   return groups.map(group => getIcon(group.name));
 }
@@ -20,7 +23,7 @@ class CapabilityGroup extends React.Component {
   }
   
   render() {
-    const { capabilities, capabilityCheckpointStates, handleCheckboxes } = this.props;
+    const { event_id, capabilities, capabilityCheckpointStates, handleCheckboxes } = this.props;
     return (
       capabilities.map((capability, capabilityIndex) => {
         const { delegateGroups } = capability.template;
@@ -35,9 +38,16 @@ class CapabilityGroup extends React.Component {
                 </Grid>
                 <Grid item>
                 <CardActions>
-                  <Button onClick={() => this.removeCapability(capability._id)} size="small" color="primary">
-                    <Delete /> Remove
-                  </Button>
+                  <Mutation mutation={REMOVE_CAPABILITY}>
+                  {(addCapability) => (
+                    <Button 
+                    onClick={() => addCapability({ variables: { eventId: event_id, capabilityId: capability._id } })} 
+                    size="small" color="primary"
+                    >
+                      <Delete /> Remove
+                    </Button>
+                  )}
+                  </Mutation>
                 </CardActions>
                 </Grid>
               </Grid>
@@ -139,7 +149,7 @@ class ViewCard extends React.Component {
             <LinearProgress variant="determinate" value={this.getProgressPercent()} />
           </CardContent>
           <CardContent>
-            <CapabilityGroup capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)} />
+            <CapabilityGroup event_id={event._id} capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)} />
           </CardContent>
         </Card>
       </div>
