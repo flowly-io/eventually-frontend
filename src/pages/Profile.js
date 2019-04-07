@@ -29,7 +29,7 @@ class Profile extends React.Component {
                   }}
                 >
                   <CircularProgress size={100} />
-                  <h2>Loading your events...</h2>
+                  <h2>Loading your profile...</h2>
                 </div>
               );
             if (error)
