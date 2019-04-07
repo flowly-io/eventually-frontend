@@ -24,7 +24,7 @@ import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
 import { Query } from "react-apollo";
 import Delete from "@material-ui/icons/Delete";
-import Loader from "../Loader";
+import Loader from "./Loader";
 
 import { REMOVE_CAPABILITY, ADD_CAPABILITY } from "../mutations/capabilities";
 import { GET_CAPABILITIES } from "../queries/events";
@@ -68,12 +68,11 @@ class CapabilityGroup extends React.Component {
 
   render() {
     const {
-      event_id,
+      eventId,
       capabilities,
       capabilityCheckpointStates,
       handleCheckboxes
     } = this.props;
-    console.log(capabilityCheckpointStates);
     return capabilities.map((capability, capabilityIndex) => {
       const { delegateGroups } = capability.template;
       return (
@@ -86,14 +85,14 @@ class CapabilityGroup extends React.Component {
               <Grid item>
                 <CardActions>
                   <Mutation mutation={REMOVE_CAPABILITY}>
-                    {(addCapability, { loading }) => {
+                    {(removeCapability, { loading }) => {
                       if (loading) return <Loader size={20} />;
                       return (
                         <Button
                           onClick={() =>
-                            addCapability({
+                            removeCapability({
                               variables: {
-                                eventId: event_id,
+                                eventId: eventId,
                                 capabilityId: capability._id
                               }
                             })
@@ -230,6 +229,7 @@ class ViewCard extends React.Component {
       addCapabilityDialogOpen,
       capabilityToAdd
     } = this.state;
+    console.log(event);
     return (
       <div
         style={{
@@ -263,7 +263,7 @@ class ViewCard extends React.Component {
           </div>
           <CardContent>
             <CapabilityGroup
-              event_id={event._id}
+              eventId={event._id}
               capabilities={capabilities}
               capabilityCheckpointStates={capabilityCheckpointStates}
               handleCheckboxes={(capabilityIndex, checkpointIndex, newState) =>

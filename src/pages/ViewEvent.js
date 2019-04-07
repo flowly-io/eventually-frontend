@@ -4,13 +4,16 @@ import { Query } from "react-apollo";
 import ViewCard from "../components/ViewCard";
 
 import { GET_EVENT } from "../queries/events";
-import Loader from "../Loader";
+import Loader from "../components/Loader";
 
 function ViewEvent({ match }) {
   const id = match.params.id;
-  const eventQuery = GET_EVENT(id);
   return id ? (
-    <Query query={eventQuery}>
+    <Query
+      query={GET_EVENT}
+      variables={{ eventId: id }}
+      fetchPolicy="network-only"
+    >
       {({ loading, error, data }) => {
         if (loading) return <Loader size={100} text="Loading your events"/>;
         if (error) return `Error! ${error.message}`;

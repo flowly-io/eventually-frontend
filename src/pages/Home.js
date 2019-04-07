@@ -5,7 +5,7 @@ import EventOverviewCard from "../components/EventOverviewCard";
 
 // GraphQL Quries
 import { GET_EVENTS_BY_ME } from "../queries/events";
-import Loader from "../Loader";
+import Loader from "../components/Loader";
 
 function Home() {
   return (

@@ -12,17 +12,16 @@ import LocationCityIcon from "@material-ui/icons/LocationCity";
 
 const getIcon = name => {
   const props = {
-    title:name,
-    placement: "bottom",
+    title: name,
     style: {
-      paddingRight: "0.4rem",
+      paddingRight: "0.4rem"
     }
   };
 
   switch (name) {
     case group.ADMIN:
       return (
-          <Tooltip {...props}>
+        <Tooltip {...props}>
           <BusinessCenterIcon />
         </Tooltip>
       );
@@ -38,26 +37,26 @@ const getIcon = name => {
           <StudentsIcon />
         </Tooltip>
       );
-  case group.SECURITY:
-    return (
+    case group.SECURITY:
+      return (
         <Tooltip {...props}>
           <SecurityIcon />
         </Tooltip>
-    );
-  case group.BINS:
-    return (
+      );
+    case group.BINS:
+      return (
         <Tooltip {...props}>
           <DeleteIcon />
         </Tooltip>
-    );
-  case group.VENUES:
-    return (
+      );
+    case group.VENUES:
+      return (
         <Tooltip {...props}>
           <LocationCityIcon />
         </Tooltip>
-    );
-  default:
-    return (
+      );
+    default:
+      return (
         <Tooltip {...props}>
           <GroupIcon />
         </Tooltip>
