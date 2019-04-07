@@ -5,7 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { TableRow, TableCell } from '@material-ui/core';
+import { Grid, Button, CardActions, TableRow, TableCell } from '@material-ui/core';
+import Delete from "@material-ui/icons/Delete"
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
 
@@ -13,32 +14,53 @@ function groupsToIcons(groups) {
   return groups.map(group => getIcon(group.name));
 }
 
-function CapabilityGroup(props) {
-  const { capabilities, capabilityCheckpointStates, handleCheckboxes } = props;
-  return (
-    capabilities.map((capability, capabilityIndex) => {
-      const { delegateGroups } = capability.template;
-      return (
-          <div style={{ paddingBottom: "2rem" }}>
-          <Typography variant="h6">
-            {capability.name}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {capability.description}
-          </Typography>
-          <Typography variant="subtitle2" style={{ display: 'flex' }}>
-          <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span><span>{groupsToIcons(delegateGroups)}</span>
-          </Typography>
-          <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)}/>
-        </div>
-      );
-    })
-  );
+class CapabilityGroup extends React.Component {
+  removeCapability = (id) => {
+    console.log(`Removed capability ${id}! (but not really)`)
+  }
+  
+  render() {
+    const { capabilities, capabilityCheckpointStates, handleCheckboxes } = this.props;
+    return (
+      capabilities.map((capability, capabilityIndex) => {
+        const { delegateGroups } = capability.template;
+        return (
+          <div>
+            <div style={{ padding: 25 }}>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <Typography variant="h6" >
+                    {capability.name}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                <CardActions>
+                  <Button onClick={() => this.removeCapability(capability._id)} size="small" color="primary">
+                    <Delete /> Remove
+                  </Button>
+                </CardActions>
+                </Grid>
+              </Grid>
+  
+              <Typography>
+                {capability.description}
+              </Typography>
+              <Typography variant="subtitle2" style={{ display: 'flex' }}>
+                <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span><span>{groupsToIcons(delegateGroups)}</span>
+              </Typography>
+              <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)} />
+            </div>
+  
+          </div>
+        );
+      })
+    );
+  }
 }
 
 class CapabilityTable extends React.Component {
   render() {
-    const { selected, checkpoints, handleCheckboxes} = this.props;
+    const { selected, checkpoints, handleCheckboxes } = this.props;
     return (
       checkpoints.map((checkpoint, i) => {
         return (
@@ -67,7 +89,7 @@ class ViewCard extends React.Component {
     let capabilityCheckpointStates = Array(capabilities.length).fill([]);
     capabilityCheckpointStates = capabilities.map(capability => {
       const { checkpoints } = capability;
-      return checkpoints.map(checkpoint=>checkpoint.done);
+      return checkpoints.map(checkpoint => checkpoint.done);
     });
     this.state = {
       capabilityCheckpointStates: capabilityCheckpointStates,
@@ -77,7 +99,7 @@ class ViewCard extends React.Component {
   checkpointStatusChange(capabilityIndex, checkpointIndex, newState) {
     const capabilityCheckpointStates = this.state.capabilityCheckpointStates.slice();
     capabilityCheckpointStates[capabilityIndex][checkpointIndex] = newState;
-    this.setState({capabilityCheckpointStates: capabilityCheckpointStates});
+    this.setState({ capabilityCheckpointStates: capabilityCheckpointStates });
   }
 
   getProgressPercent() {
@@ -110,14 +132,14 @@ class ViewCard extends React.Component {
           <CardHeader variant="h1" title={event.name} />
           <CardContent>
             <Typography variant="h5" color="textSecondary">
-                {dateTimeRange(startDateTime, endDateTime)}
+              {dateTimeRange(startDateTime, endDateTime)}
             </Typography>
           </CardContent>
           <CardContent>
             <LinearProgress variant="determinate" value={this.getProgressPercent()} />
           </CardContent>
           <CardContent>
-        <CapabilityGroup capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)}/>
+            <CapabilityGroup capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)} />
           </CardContent>
         </Card>
       </div>
