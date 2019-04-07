@@ -7,18 +7,27 @@ import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { TableRow, TableCell } from '@material-ui/core';
 import dateTimeRange from "../util/dateTimeRange";
+import getIcon from "../util/groups";
+
+function groupsToIcons(groups) {
+  return groups.map(group => getIcon(group.name));
+}
 
 function CapabilityGroup(props) {
   const { capabilities, capabilityCheckpointStates, handleCheckboxes } = props;
   return (
     capabilities.map((capability, capabilityIndex) => {
+      const { delegateGroups } = capability.template;
       return (
         <div>
           <Typography variant="h6">
             {capability.name}
           </Typography>
-          <Typography>
+          <Typography variant="subtitle1" color="textSecondary">
             {capability.description}
+          </Typography>
+          <Typography variant="subtitle2">
+            Delegated groups: {groupsToIcons(delegateGroups)}
           </Typography>
           <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)}/>
         </div>
