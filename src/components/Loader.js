@@ -2,7 +2,8 @@ import React from "react";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-export default function Loader() {
+export default function Loader(props) {
+  const { text, size } = props;
   return (
     <div
       style={{
@@ -13,8 +14,8 @@ export default function Loader() {
         flexDirection: "column"
       }}
     >
-      <CircularProgress size={100} />
-      <h2>Loading your events...</h2>
+      <CircularProgress size={size} />
+      {text ? <h2>{text}</h2> : null}
     </div>
   );
 }

@@ -15,7 +15,7 @@ function ViewEvent({ match }) {
       fetchPolicy="network-only"
     >
       {({ loading, error, data }) => {
-        if (loading) return <Loader />;
+        if (loading) return <Loader size={100} text="Loading your events"/>;
         if (error) return `Error! ${error.message}`;
         const { event } = data;
         return <ViewCard event={event} />;
