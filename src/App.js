@@ -11,6 +11,7 @@ import ViewEvent from "./pages/ViewEvent";
 import ViewAllEvents from "./pages/ViewAllEvents";
 import Home from "./pages/Home";
 import SetDescription from "./pages/SetDescription";
+import Profile from "./pages/Profile";
 
 function AppRouter() {
   return (
@@ -41,10 +42,21 @@ function AppRouter() {
         >
           Create
         </Button>
+
+        <Button
+          color="primary"
+          variant="contained"
+          component={Link}
+          to="/profile"
+          style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        >
+          My Profile
+        </Button>
       </Toolbar>
       <div style={{ height: "100vh" }}>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/profile" component={Profile} />
           <Route path="/create" exact component={SetName} />
           <Route path="/create/description" exact component={SetDescription} />
           <Route path="/create/date" exact component={SetDate} />
