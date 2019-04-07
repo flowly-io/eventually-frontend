@@ -10,6 +10,7 @@ import { Grid, CardActions, Button, TableRow, TableCell } from '@material-ui/cor
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
 import Delete from "@material-ui/icons/Delete"
+import Loader from "../Loader";
 
 
 import { REMOVE_CAPABILITY } from '../mutations/capabilities';
@@ -40,14 +41,20 @@ class CapabilityGroup extends React.Component {
                 <Grid item>
                 <CardActions>
                   <Mutation mutation={REMOVE_CAPABILITY}>
-                  {(addCapability) => (
-                    <Button 
-                    onClick={() => addCapability({ variables: { eventId: event_id, capabilityId: capability._id } })} 
-                    size="small" color="primary"
-                    >
-                      <Delete /> Remove
-                    </Button>
-                  )}
+
+                    {
+                      (addCapability, {loading}) => {
+                        if (loading) return <Loader size={20} />;
+                        return (
+                      <Button 
+                      onClick={() => addCapability({ variables: { eventId: event_id, capabilityId: capability._id } })} 
+                      size="small" color="primary"
+                      >
+                        <Delete /> Remove
+                      </Button>
+
+                      )}
+                    }
                   </Mutation>
                 </CardActions>
                 </Grid>
