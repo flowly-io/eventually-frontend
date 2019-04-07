@@ -240,12 +240,10 @@ class ViewCard extends React.Component {
         }}
       >
         <Card>
-          <div style={{ position: "sticky" }}>
-            <CardHeader
-              variant="h1"
-              title={event.name}
-              style={{ textAlign: "center" }}
-            />
+          <div style={{ padding: "16px 0" }}>
+            <Typography variant="h3" style={{ textAlign: "center" }}>
+              {event.name}
+            </Typography>
             <CardContent>
               <Typography
                 variant="h4"
