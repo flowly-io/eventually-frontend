@@ -22,7 +22,7 @@ export default class SetDate extends React.Component {
 
   nextPage = () => {
     formStore.setDates(this.state.startDate, this.state.endDate);
-    history.push("/create/capabilities");
+    history.push("/create/attendees");
   };
 
   render() {

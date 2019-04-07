@@ -6,10 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Grid, Button, CardActions, TableRow, TableCell } from '@material-ui/core';
-import Delete from "@material-ui/icons/Delete"
+import { Grid, CardActions, Button, TableRow, TableCell } from '@material-ui/core';
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
+import Delete from "@material-ui/icons/Delete"
+
 
 import { REMOVE_CAPABILITY } from '../mutations/capabilities';
 
@@ -70,7 +71,7 @@ class CapabilityGroup extends React.Component {
 
 class CapabilityTable extends React.Component {
   render() {
-    const { selected, checkpoints, handleCheckboxes } = this.props;
+    const { selected, checkpoints, handleCheckboxes} = this.props;
     return (
       checkpoints.map((checkpoint, i) => {
         return (
@@ -99,7 +100,7 @@ class ViewCard extends React.Component {
     let capabilityCheckpointStates = Array(capabilities.length).fill([]);
     capabilityCheckpointStates = capabilities.map(capability => {
       const { checkpoints } = capability;
-      return checkpoints.map(checkpoint => checkpoint.done);
+      return checkpoints.map(checkpoint=>checkpoint.done);
     });
     this.state = {
       capabilityCheckpointStates: capabilityCheckpointStates,
@@ -109,7 +110,7 @@ class ViewCard extends React.Component {
   checkpointStatusChange(capabilityIndex, checkpointIndex, newState) {
     const capabilityCheckpointStates = this.state.capabilityCheckpointStates.slice();
     capabilityCheckpointStates[capabilityIndex][checkpointIndex] = newState;
-    this.setState({ capabilityCheckpointStates: capabilityCheckpointStates });
+    this.setState({capabilityCheckpointStates: capabilityCheckpointStates});
   }
 
   getProgressPercent() {
@@ -142,7 +143,7 @@ class ViewCard extends React.Component {
           <CardHeader variant="h1" title={event.name} />
           <CardContent>
             <Typography variant="h5" color="textSecondary">
-              {dateTimeRange(startDateTime, endDateTime)}
+                {dateTimeRange(startDateTime, endDateTime)}
             </Typography>
           </CardContent>
           <CardContent>
