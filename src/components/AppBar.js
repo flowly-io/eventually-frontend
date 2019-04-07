@@ -5,6 +5,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 function AppBar({ location }) {
+  const buttonStyles = {
+    fontWeight: 700,
+    margin: 16,
+    color: "white",
+    padding: "1rem 2rem",
+    fontSize: "1.5rem"
+  };
   const buttons = (
     <>
       <Button
@@ -12,7 +19,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={buttonStyles}
       >
         Home
       </Button>
@@ -21,12 +28,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/create"
-        style={{
-          fontWeight: 700,
-          marginLeft: 16,
-          color: "white",
-          padding: "24px 64px"
-        }}
+        style={buttonStyles}
       >
         Create
       </Button>
@@ -35,7 +37,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/profile"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={buttonStyles}
       >
         My Profile
       </Button>
@@ -49,7 +51,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={buttonStyles}
       >
         Home
       </Button>
@@ -58,7 +60,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/admin"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={buttonStyles}
       >
         Admin home
       </Button>
@@ -67,7 +69,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/admin/capabilities"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={buttonStyles}
       >
         Capabilities
       </Button>
@@ -75,16 +77,17 @@ function AppBar({ location }) {
   );
 
   return (
-    <Toolbar style={{ padding: 16, justifyContent: "space-between" }}>
+    <Toolbar
+      style={{ padding: 16, flexDirection: "column", alignItems: "center" }}
+    >
       <Link to="/">
         <img
+          style={{ animation: "animate-logo 2s", height: 128 }}
           src="/eventually.png"
           alt="The logo for team eVentually"
-          style={{ height: 96 }}
         />
       </Link>
-      <span style={{ flexGrow: 1 }} />
-      {location.pathname.indexOf("/admin") ? buttons : adminButtons}
+      <div>{location.pathname.indexOf("/admin") ? buttons : adminButtons}</div>
     </Toolbar>
   );
 }
