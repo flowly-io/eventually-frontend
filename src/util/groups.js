@@ -11,46 +11,54 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 
 const getIcon = name => {
+  const props = {
+    title:name,
+    placement: "bottom",
+    style: {
+      paddingRight: "0.4rem",
+    }
+  };
+
   switch (name) {
     case group.ADMIN:
       return (
-        <Tooltip title={name} placement="bottom">
+          <Tooltip {...props}>
           <BusinessCenterIcon />
         </Tooltip>
       );
     case group.CATERING:
       return (
-        <Tooltip title={name} placement="bottom">
+        <Tooltip {...props}>
           <FoodIcon />
         </Tooltip>
       );
     case group.STUDENTS:
       return (
-        <Tooltip title={name} placement="bottom">
+        <Tooltip {...props}>
           <StudentsIcon />
         </Tooltip>
       );
   case group.SECURITY:
     return (
-        <Tooltip title={name} placement="bottom">
+        <Tooltip {...props}>
           <SecurityIcon />
         </Tooltip>
     );
   case group.BINS:
     return (
-        <Tooltip title={name} placement="bottom">
+        <Tooltip {...props}>
           <DeleteIcon />
         </Tooltip>
     );
   case group.VENUES:
     return (
-        <Tooltip title={name} placement="bottom">
+        <Tooltip {...props}>
           <LocationCityIcon />
         </Tooltip>
     );
   default:
     return (
-        <Tooltip title={name} placement="bottom">
+        <Tooltip {...props}>
           <GroupIcon />
         </Tooltip>
       );

@@ -19,15 +19,15 @@ function CapabilityGroup(props) {
     capabilities.map((capability, capabilityIndex) => {
       const { delegateGroups } = capability.template;
       return (
-        <div>
+          <div style={{ paddingBottom: "2rem" }}>
           <Typography variant="h6">
             {capability.name}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {capability.description}
           </Typography>
-          <Typography variant="subtitle2">
-            Delegated groups: {groupsToIcons(delegateGroups)}
+          <Typography variant="subtitle2" style={{ display: 'flex' }}>
+          <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span><span>{groupsToIcons(delegateGroups)}</span>
           </Typography>
           <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)}/>
         </div>
