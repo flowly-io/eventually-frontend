@@ -9,39 +9,56 @@ import { Grid, Button, CardActions, TableRow, TableCell } from '@material-ui/cor
 import Delete from "@material-ui/icons/Delete"
 import dateTimeRange from "../util/dateTimeRange";
 
-function CapabilityGroup(props) {
-  const { capabilities, capabilityCheckpointStates, handleCheckboxes } = props;
-  return (
-    capabilities.map((capability, capabilityIndex) => {
-      return (
-        <div>
-          <div style={{ padding: 25 }}>
-            <Grid container justify="space-between">
-              <Grid item>
-                <Typography variant="h6" >
-                  {capability.name}
-                </Typography>
-              </Grid>
-              <Grid item>
-              <CardActions>
-                <Button size="small" color="primary">
-                  <Delete /> Remove
-                </Button>
-              </CardActions>
-              </Grid>
-            </Grid>
-
-            <Typography>
-              {capability.description}
-            </Typography>
-            <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)} />
-          </div>
-
-        </div>
-      );
-    })
-  );
+function deleteEvent() {
+  console.log("Deleted! (but not really)")
 }
+
+class CapabilityGroup extends React.Component {
+  deleteEvent = () => {
+    console.log("Deleted! (but not really)")
+  }
+  
+  render() {
+    const { capabilities, capabilityCheckpointStates, handleCheckboxes } = this.props;
+    return (
+      capabilities.map((capability, capabilityIndex) => {
+        return (
+          <div>
+            <div style={{ padding: 25 }}>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <Typography variant="h6" >
+                    {capability.name}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                <CardActions>
+                  <Button onClick={this.deleteEvent} size="small" color="primary">
+                    <Delete /> Remove
+                  </Button>
+                </CardActions>
+                </Grid>
+              </Grid>
+  
+              <Typography>
+                {capability.description}
+              </Typography>
+              <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)} />
+            </div>
+  
+          </div>
+        );
+      })
+    );
+  }
+}
+
+// function CapabilityGroup(props) {
+
+
+  
+  
+// }
 
 class CapabilityTable extends React.Component {
   render() {
