@@ -46,12 +46,11 @@ export const GET_EVENTS = gql`
   ${FIELDS_ON_EVENT}
 `;
 
-export const GET_EVENT = eventId => {
-  return gql`query {
-    event(eventId: "${eventId}") {
+export const GET_EVENT = gql`
+  query($eventId: ID!) {
+    event(eventId: $eventId) {
       ...eventFields
     }
   }
   ${FIELDS_ON_EVENT}
 `;
-};
