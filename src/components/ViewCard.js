@@ -6,7 +6,13 @@ import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from "@material-ui/core/Checkbox";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { Grid, CardActions, TableRow, TableCell } from "@material-ui/core";
+import {
+  Grid,
+  CardActions,
+  TableRow,
+  TableCell,
+  Table
+} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -67,6 +73,7 @@ class CapabilityGroup extends React.Component {
       capabilityCheckpointStates,
       handleCheckboxes
     } = this.props;
+    console.log(capabilityCheckpointStates);
     return capabilities.map((capability, capabilityIndex) => {
       const { delegateGroups } = capability.template;
       return (
@@ -108,13 +115,15 @@ class CapabilityGroup extends React.Component {
               <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span>
               <span>{groupsToIcons(delegateGroups)}</span>
             </Typography>
-            <CapabilityTable
-              checkpoints={capability.checkpoints}
-              selected={capabilityCheckpointStates[capabilityIndex]}
-              handleCheckboxes={(checkpointIndex, newState) =>
-                handleCheckboxes(capabilityIndex, checkpointIndex, newState)
-              }
-            />
+            <Table>
+              <CapabilityTable
+                checkpoints={capability.checkpoints}
+                selected={capabilityCheckpointStates[capabilityIndex]}
+                handleCheckboxes={(checkpointIndex, newState) =>
+                  handleCheckboxes(capabilityIndex, checkpointIndex, newState)
+                }
+              />
+            </Table>
           </div>
         </div>
       );
@@ -146,6 +155,7 @@ class ViewCard extends React.Component {
     super(props);
     const { event } = props;
     const { capabilities } = event;
+    console.log(capabilities);
     let capabilityCheckpointStates = Array(capabilities.length).fill([]);
     capabilityCheckpointStates = capabilities.map(capability => {
       const { checkpoints } = capability;
@@ -157,6 +167,22 @@ class ViewCard extends React.Component {
       capabilityToAdd: ""
     };
   }
+
+  componentDidUpdate = () => {
+    const {
+      event: { capabilities }
+    } = this.props;
+    let capabilityCheckpointStates = Array(capabilities.length).fill([]);
+    capabilityCheckpointStates = capabilities.map(capability => {
+      const { checkpoints } = capability;
+      return checkpoints.map(checkpoint => checkpoint.done);
+    });
+    this.state = {
+      capabilityCheckpointStates: capabilityCheckpointStates,
+      addCapabilityDialogOpen: false,
+      capabilityToAdd: ""
+    };
+  };
 
   checkpointStatusChange = (capabilityIndex, checkpointIndex, newState) => {
     const capabilityCheckpointStates = this.state.capabilityCheckpointStates.slice();
@@ -214,27 +240,29 @@ class ViewCard extends React.Component {
         }}
       >
         <Card>
-          <CardHeader
-            variant="h1"
-            title={event.name}
-            style={{ textAlign: "center" }}
-          />
-          <CardContent>
-            <Typography
-              variant="h5"
-              color="textSecondary"
+          <div style={{ position: "sticky" }}>
+            <CardHeader
+              variant="h1"
+              title={event.name}
               style={{ textAlign: "center" }}
-            >
-              {dateTimeRange(startDateTime, endDateTime)}
-            </Typography>
-          </CardContent>
-          <CardContent>
-            <LinearProgress
-              variant="determinate"
-              value={this.getProgressPercent()}
-              style={{ height: 8 }}
             />
-          </CardContent>
+            <CardContent>
+              <Typography
+                variant="h4"
+                color="textSecondary"
+                style={{ textAlign: "center" }}
+              >
+                {dateTimeRange(startDateTime, endDateTime)}
+              </Typography>
+            </CardContent>
+            <CardContent>
+              <LinearProgress
+                variant="determinate"
+                value={this.getProgressPercent()}
+                style={{ height: 8 }}
+              />
+            </CardContent>
+          </div>
           <CardContent>
             <CapabilityGroup
               event_id={event._id}
