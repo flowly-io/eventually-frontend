@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Card, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 
-export default function Loader() {
+export default function Loader(props) {
+  const { text, size } = props;
   return (
     <div
       style={{
@@ -13,8 +14,8 @@ export default function Loader() {
         flexDirection: "column"
       }}
     >
-      <CircularProgress size={100} />
-      <h2>Loading your events...</h2>
+      <CircularProgress size={size} />
+      {text ? <h2>{text}</h2> : null}
     </div>
   );
 }

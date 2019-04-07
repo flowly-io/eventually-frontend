@@ -12,7 +12,7 @@ function Home() {
     <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <Query query={GET_EVENTS_BY_ME}>
         {({ loading, error, data }) => {
-          if (loading) return <Loader />;
+          if (loading) return <Loader size={100} text="Loading your events"/>;
           if (error)
             return (
               <div

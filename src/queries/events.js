@@ -67,7 +67,6 @@ export const GET_CAPABILITIES = gql`
   query {
     capabilities {
       _id
-      name
       description
       checkpoints {
         description
