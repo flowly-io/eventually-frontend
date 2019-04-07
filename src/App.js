@@ -1,8 +1,7 @@
 import React from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
+import AppBar from "./components/AppBar";
 
 import SetName from "./pages/SetName";
 import SetDate from "./pages/SetDate";
@@ -13,47 +12,21 @@ import Home from "./pages/Home";
 import SetDescription from "./pages/SetDescription";
 import Profile from "./pages/Profile";
 
+import Admin from "./pages/admin/Admin";
+import CreateCapability from "./pages/admin/CreateCapability";
+
 function AppRouter() {
   return (
-    <div
-      style={{
-        height: "100vh"
-      }}
-    >
-      <Toolbar style={{ padding: 16, justifyContent: "space-between" }}>
-        <Link to="/">
-          <img
-            src="/eventually.png"
-            alt="The logo for team eVentually"
-            style={{ height: 96 }}
-          />
-        </Link>
-        <Button
-          color="primary"
-          variant="contained"
-          component={Link}
-          to="/create"
-          style={{
-            fontWeight: 700,
-            marginLeft: 16,
-            color: "white",
-            padding: "24px 64px"
-          }}
-        >
-          Create
-        </Button>
-
-        <Button
-          color="primary"
-          variant="contained"
-          component={Link}
-          to="/profile"
-          style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
-        >
-          My Profile
-        </Button>
-      </Toolbar>
-      <div style={{ height: "100vh" }}>
+    <div style={{ height: "100vh" }}>
+      <AppBar />
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          minWidth: "60%"
+        }}
+      >
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/profile" component={Profile} />
@@ -63,6 +36,8 @@ function AppRouter() {
           <Route path="/create/attendees" exact component={SetAttendees} />
           <Route path="/events" exact component={ViewAllEvents} />
           <Route path="/events/:id" component={ViewEvent} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/admin/createCapability" component={CreateCapability} />
         </Switch>
       </div>
     </div>
