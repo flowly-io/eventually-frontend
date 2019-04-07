@@ -5,6 +5,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 function AppBar({ location }) {
+  const styles = {
+    fontWeight: 700,
+    marginLeft: 8,
+    color: "white",
+    padding: "1rem 2rem",
+    fontSize: "1.5rem"
+  };
   const buttons = (
     <>
       <Button
@@ -12,7 +19,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={styles}
       >
         Home
       </Button>
@@ -21,12 +28,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/create"
-        style={{
-          fontWeight: 700,
-          marginLeft: 16,
-          color: "white",
-          padding: "24px 64px"
-        }}
+        style={styles}
       >
         Create
       </Button>
@@ -35,7 +37,7 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/profile"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={styles}
       >
         My Profile
       </Button>

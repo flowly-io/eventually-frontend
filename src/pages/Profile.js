@@ -14,14 +14,21 @@ import getIcon from "../util/groups";
 class Profile extends React.Component {
   render() {
     return (
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          marginTop: "2rem",
+          maxWidth: "50rem"
+        }}
+      >
         <Query query={GET_MY_PROFILE}>
           {({ loading, error, data }) => {
             if (loading)
               return (
                 <div
                   style={{
-                    flex: 1,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -43,7 +50,7 @@ class Profile extends React.Component {
                     flexDirection: "column"
                   }}
                 >
-                  <h2>An error has occuredh</h2>
+                  <h2>An error has occured</h2>
                   <b>Error Message: {error.message}</b>
                   <pre
                     style={{
@@ -54,11 +61,10 @@ class Profile extends React.Component {
                   </pre>
                 </div>
               );
-            console.log(data);
             const { me } = data;
             const { firstname, lastname, email, groups } = me;
             return (
-              <div>
+              <>
                 <Card>
                   <CardHeader
                     avatar={
@@ -71,12 +77,14 @@ class Profile extends React.Component {
                   />
                   <CardContent>
                     <h3>My assigned groups</h3>
-                    {groups.map((group, i) => {
-                      return <div key={i}>{getIcon(group)}</div>;
-                    })}
+                    <div style={{ display: "flex" }}>
+                      {groups.map((group, i) => {
+                        return <div key={i}>{getIcon(group)}</div>;
+                      })}
+                    </div>
                   </CardContent>
                 </Card>
-              </div>
+              </>
             );
           }}
         </Query>
