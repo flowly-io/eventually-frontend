@@ -25,6 +25,15 @@ function AppBar({ location }) {
       >
         Create
       </Button>
+      <Button
+        color="primary"
+        variant="contained"
+        component={Link}
+        to="/profile"
+        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+      >
+        My Profile
+      </Button>
     </>
   );
 

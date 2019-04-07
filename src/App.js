@@ -9,6 +9,7 @@ import SetAttendees from "./pages/SetAttendees";
 import ViewEvent from "./pages/ViewEvent";
 import ViewAllEvents from "./pages/ViewAllEvents";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 import Admin from "./pages/admin/Admin";
 import CreateCapability from "./pages/admin/CreateCapability";
@@ -20,6 +21,7 @@ function AppRouter() {
       <div style={{ height: "100vh" }}>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/profile" component={Profile} />
           <Route path="/create" exact component={SetName} />
           <Route path="/create/date" exact component={SetDate} />
           <Route path="/create/attendees" exact component={SetAttendees} />
