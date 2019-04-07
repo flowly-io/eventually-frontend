@@ -8,19 +8,18 @@ import Checkbox from "@material-ui/core/Checkbox";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { Grid, CardActions, TableRow, TableCell } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import AddIcon from '@material-ui/icons/Add';
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import AddIcon from "@material-ui/icons/Add";
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
 import { Query } from "react-apollo";
-import Delete from "@material-ui/icons/Delete"
+import Delete from "@material-ui/icons/Delete";
 
-
-import { REMOVE_CAPABILITY, ADD_CAPABILITY } from '../mutations/capabilities';
+import { REMOVE_CAPABILITY, ADD_CAPABILITY } from "../mutations/capabilities";
 import { GET_CAPABILITIES } from "../queries/events";
 
 import { CircularProgress } from "@material-ui/core";
@@ -47,7 +46,7 @@ function CapabilitySelect(props) {
           </Select>
         );
       }}
-      </Query>
+    </Query>
   );
 }
 
@@ -185,12 +184,13 @@ class ViewCard extends React.Component {
     this.setState({ addCapabilityDialogOpen: true });
   };
 
+  closeCapabilityDialog = () => {
+    this.setState({ addCapabilityDialogOpen: false });
+  };
+
   handleAddCapabilityChange = event => {
     this.setState({ capabilityToAdd: event.target.value });
   };
-
-  submitAddCapability = () => {
-  }
 
   render() {
     const { event } = this.props;
@@ -201,11 +201,26 @@ class ViewCard extends React.Component {
       capabilityToAdd
     } = this.state;
     return (
-      <div style={{ padding: 70 }}>
+      <div
+        style={{
+          padding: 70,
+          maxWidth: "30vw",
+          minWidth: 300,
+          margin: "0 auto"
+        }}
+      >
         <Card>
-          <CardHeader variant="h1" title={event.name} />
+          <CardHeader
+            variant="h1"
+            title={event.name}
+            style={{ textAlign: "center" }}
+          />
           <CardContent>
-            <Typography variant="h5" color="textSecondary">
+            <Typography
+              variant="h5"
+              color="textSecondary"
+              style={{ textAlign: "center" }}
+            >
               {dateTimeRange(startDateTime, endDateTime)}
             </Typography>
           </CardContent>
@@ -213,6 +228,7 @@ class ViewCard extends React.Component {
             <LinearProgress
               variant="determinate"
               value={this.getProgressPercent()}
+              style={{ height: 8 }}
             />
           </CardContent>
           <CardContent>
@@ -229,15 +245,19 @@ class ViewCard extends React.Component {
               }
             />
           </CardContent>
-        <CardContent style={{ marginTop: "-2rem" }}>
-          <Button
-            color="primary"
-            variant="outlined"
-            onClick={() => this.handleAddCapabilityClick()}
+          <CardContent style={{ marginTop: "-2rem" }}>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => this.handleAddCapabilityClick()}
             >
               <AddIcon /> Add capability
             </Button>
-            <Dialog open={addCapabilityDialogOpen} fullWidth={true}>
+            <Dialog
+              open={addCapabilityDialogOpen}
+              onClose={this.closeCapabilityDialog}
+              fullWidth={true}
+            >
               <DialogTitle>Add capability</DialogTitle>
               <DialogContent>
                 <CapabilitySelect
@@ -247,25 +267,26 @@ class ViewCard extends React.Component {
               </DialogContent>
               <DialogContent>
                 <Mutation mutation={ADD_CAPABILITY}>
-                    {addCapability => (
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        onClick={() =>
-                          addCapability({
-                            variables: {
-                              eventId: event._id,
-                              capabilityId: capabilityToAdd,
-                            }
-                          })
-                        }
-                        size="small"
-                        color="primary"
-                      >
-                        <AddIcon /> Add
-                      </Button>
-                    )}
-                 </Mutation>
+                  {addCapability => (
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      onClick={() => {
+                        addCapability({
+                          variables: {
+                            eventId: event._id,
+                            capabilityId: capabilityToAdd
+                          }
+                        });
+                        this.closeCapabilityDialog();
+                      }}
+                      size="small"
+                      color="primary"
+                    >
+                      <AddIcon /> Add
+                    </Button>
+                  )}
+                </Mutation>
               </DialogContent>
             </Dialog>
           </CardContent>
