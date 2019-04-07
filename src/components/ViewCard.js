@@ -1,39 +1,72 @@
 import React from "react";
+import  { Mutation } from "react-apollo";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardHeader from "@material-ui/core/CardHeader";
 import Checkbox from '@material-ui/core/Checkbox';
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { TableRow, TableCell } from '@material-ui/core';
+import { Grid, CardActions, Button, TableRow, TableCell } from '@material-ui/core';
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
+import Delete from "@material-ui/icons/Delete"
+
+
+import { REMOVE_CAPABILITY } from '../mutations/capabilities';
 
 function groupsToIcons(groups) {
   return groups.map(group => getIcon(group.name));
 }
 
-function CapabilityGroup(props) {
-  const { capabilities, capabilityCheckpointStates, handleCheckboxes } = props;
-  return (
-    capabilities.map((capability, capabilityIndex) => {
-      const { delegateGroups } = capability.template;
-      return (
-          <div style={{ paddingBottom: "2rem" }}>
-          <Typography variant="h6">
-            {capability.name}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {capability.description}
-          </Typography>
-          <Typography variant="subtitle2" style={{ display: 'flex' }}>
-          <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span><span>{groupsToIcons(delegateGroups)}</span>
-          </Typography>
-          <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)}/>
-        </div>
-      );
-    })
-  );
+class CapabilityGroup extends React.Component {
+  removeCapability = (id) => {
+    console.log(`Removed capability ${id}! (but not really)`)
+  }
+  
+  render() {
+    const { event_id, capabilities, capabilityCheckpointStates, handleCheckboxes } = this.props;
+    return (
+      capabilities.map((capability, capabilityIndex) => {
+        const { delegateGroups } = capability.template;
+        return (
+          <div>
+            <div style={{ padding: 25 }}>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <Typography variant="h6" >
+                    {capability.name}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                <CardActions>
+                  <Mutation mutation={REMOVE_CAPABILITY}>
+                  {(addCapability) => (
+                    <Button 
+                    onClick={() => addCapability({ variables: { eventId: event_id, capabilityId: capability._id } })} 
+                    size="small" color="primary"
+                    >
+                      <Delete /> Remove
+                    </Button>
+                  )}
+                  </Mutation>
+                </CardActions>
+                </Grid>
+              </Grid>
+  
+              <Typography>
+                {capability.description}
+              </Typography>
+              <Typography variant="subtitle2" style={{ display: 'flex' }}>
+                <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span><span>{groupsToIcons(delegateGroups)}</span>
+              </Typography>
+              <CapabilityTable checkpoints={capability.checkpoints} selected={capabilityCheckpointStates[capabilityIndex]} handleCheckboxes={(checkpointIndex, newState) => handleCheckboxes(capabilityIndex, checkpointIndex, newState)} />
+            </div>
+  
+          </div>
+        );
+      })
+    );
+  }
 }
 
 class CapabilityTable extends React.Component {
@@ -117,7 +150,7 @@ class ViewCard extends React.Component {
             <LinearProgress variant="determinate" value={this.getProgressPercent()} />
           </CardContent>
           <CardContent>
-        <CapabilityGroup capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)}/>
+            <CapabilityGroup event_id={event._id} capabilities={capabilities} capabilityCheckpointStates={capabilityCheckpointStates} handleCheckboxes={(capabilityIndex, checkpointIndex, newState) => this.checkpointStatusChange(capabilityIndex, checkpointIndex, newState)} />
           </CardContent>
         </Card>
       </div>
