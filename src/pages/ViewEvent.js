@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import ViewCard from "../components/ViewCard";
 
 import { GET_EVENT } from "../queries/events";
-import Loader from "../Loader";
+import Loader from "../components/Loader";
 
 function ViewEvent({ match }) {
   const id = match.params.id;

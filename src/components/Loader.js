@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, CircularProgress } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Loader() {
   return (
