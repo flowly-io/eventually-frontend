@@ -61,3 +61,33 @@ export const GET_EVENT = gql`
   }
   ${FIELDS_ON_EVENT}
 `;
+
+export const GET_CAPABILITIES = gql`
+  query {
+    capabilities {
+      _id
+      description
+      checkpoints {
+        description
+      }
+    }
+  }
+`;
+
+export const CREATE_EVENT = gql`
+  mutation($event: EventInput!) {
+    createEvent(event: $event) {
+      _id
+      name
+      organisers {
+        firstname
+        lastname
+        email
+      }
+      audiences
+      startDateTime
+      endDateTime
+      maxCapacity
+    }
+  }
+`;

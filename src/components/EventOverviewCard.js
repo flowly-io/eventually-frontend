@@ -18,8 +18,11 @@ class EventOverviewCard extends React.Component {
       organisers.length > 1 ? ", ..." : ""
     }`;
     return (
-      <div style={{ padding: 70 }}>
-        <Card>
+      <div
+        style={{ margin: "16px auto", width: "60vw", minWidth: 300 }}
+        className="fancy-render-animation"
+      >
+        <Card elevation={8}>
           <CardActionArea component={Link} to={`/events/${event._id}`}>
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -33,11 +36,6 @@ class EventOverviewCard extends React.Component {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              <Edit /> Edit
-            </Button>
-          </CardActions>
         </Card>
       </div>
     );

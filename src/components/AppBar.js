@@ -21,7 +21,12 @@ function AppBar({ location }) {
         variant="contained"
         component={Link}
         to="/create"
-        style={{ fontWeight: 700, marginLeft: 16, color: "white" }}
+        style={{
+          fontWeight: 700,
+          marginLeft: 16,
+          color: "white",
+          padding: "24px 64px"
+        }}
       >
         Create
       </Button>
@@ -70,12 +75,14 @@ function AppBar({ location }) {
   );
 
   return (
-    <Toolbar style={{ padding: 16 }}>
-      <img
-        src="/eventually.png"
-        alt="The logo for team eVentually"
-        style={{ height: 96 }}
-      />
+    <Toolbar style={{ padding: 16, justifyContent: "space-between" }}>
+      <Link to="/">
+        <img
+          src="/eventually.png"
+          alt="The logo for team eVentually"
+          style={{ height: 96 }}
+        />
+      </Link>
       <span style={{ flexGrow: 1 }} />
       {location.pathname.indexOf("/admin") ? buttons : adminButtons}
     </Toolbar>

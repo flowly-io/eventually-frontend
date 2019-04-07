@@ -3,9 +3,9 @@ import moment from "moment";
 
 export let store = observable({
   name: undefined,
-  startDate: undefined,
-  endDate: undefined,
-  audienceTypes: undefined,
+  description: undefined,
+  startDateTime: undefined,
+  endDateTime: undefined,
   maxCapacity: undefined
 });
 
@@ -14,9 +14,9 @@ if (event !== null) {
   event = JSON.parse(event);
   action(function() {
     store.name = event.name;
-    store.startDate = event.startDate;
-    store.endDate = event.endDate;
-    store.audienceTypes = event.audienceTypes;
+    store.description = event.description;
+    store.startDateTime = event.startDateTime;
+    store.endDateTime = event.endDateTime;
     store.maxCapacity = event.audienceTypes;
   })();
 }
@@ -27,13 +27,16 @@ export const setName = action(name => {
   store.name = name;
 });
 
-export const setDates = action((startDate, endDate) => {
-  store.startDate = startDate.format(moment.ISO_8601());
-  store.endDate = endDate.format(moment.ISO_8601());
+export const setDescription = action(description => {
+  store.description = description;
 });
 
-export const setAudiences = action((audienceTypes, maxCapacity) => {
-  store.audienceTypes = audienceTypes;
+export const setDates = action((startDateTime, endDateTime) => {
+  store.startDateTime = startDateTime.format(moment.ISO_8601());
+  store.endDateTime = endDateTime.format(moment.ISO_8601());
+});
+
+export const setAudiences = action(maxCapacity => {
   store.maxCapacity = maxCapacity;
 });
 
