@@ -9,17 +9,53 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import {
   Grid,
   CardActions,
-  Button,
   TableRow,
-  TableCell
+  TableCell,
+  Table
 } from "@material-ui/core";
-import Delete from "@material-ui/icons/Delete";
-
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import AddIcon from "@material-ui/icons/Add";
 import dateTimeRange from "../util/dateTimeRange";
 import getIcon from "../util/groups";
+import { Query } from "react-apollo";
+import Delete from "@material-ui/icons/Delete";
 import Loader from "./Loader";
 
-import { REMOVE_CAPABILITY } from "../mutations/capabilities";
+import { REMOVE_CAPABILITY, ADD_CAPABILITY } from "../mutations/capabilities";
+import { GET_CAPABILITIES } from "../queries/events";
+
+import { CircularProgress } from "@material-ui/core";
+
+function CapabilitySelect(props) {
+  const { handleAddCapabilityChange, capabilityToAdd } = props;
+  return (
+    <Query query={GET_CAPABILITIES}>
+      {({ loading, error, data }) => {
+        if (loading) return <CircularProgress />;
+        if (error) return `Error! ${error.message}`;
+        const { capabilities } = data;
+        return (
+          <Select
+            style={{ width: "90%" }}
+            value={capabilityToAdd}
+            onChange={handleAddCapabilityChange}
+          >
+            {capabilities.map((capability, key) => (
+              <MenuItem value={capability._id} key={key}>
+                {capability.name}
+              </MenuItem>
+            ))}
+          </Select>
+        );
+      }}
+    </Query>
+  );
+}
 
 function groupsToIcons(groups) {
   return groups.map(group => getIcon(group.name));
@@ -78,13 +114,15 @@ class CapabilityGroup extends React.Component {
               <span style={{ paddingRight: ".5rem" }}>Delegated groups: </span>
               <span>{groupsToIcons(delegateGroups)}</span>
             </Typography>
-            <CapabilityTable
-              checkpoints={capability.checkpoints}
-              selected={capabilityCheckpointStates[capabilityIndex]}
-              handleCheckboxes={(checkpointIndex, newState) =>
-                handleCheckboxes(capabilityIndex, checkpointIndex, newState)
-              }
-            />
+            <Table>
+              <CapabilityTable
+                checkpoints={capability.checkpoints}
+                selected={capabilityCheckpointStates[capabilityIndex]}
+                handleCheckboxes={(checkpointIndex, newState) =>
+                  handleCheckboxes(capabilityIndex, checkpointIndex, newState)
+                }
+              />
+            </Table>
           </div>
         </div>
       );
@@ -116,23 +154,42 @@ class ViewCard extends React.Component {
     super(props);
     const { event } = props;
     const { capabilities } = event;
+    console.log(capabilities);
     let capabilityCheckpointStates = Array(capabilities.length).fill([]);
     capabilityCheckpointStates = capabilities.map(capability => {
       const { checkpoints } = capability;
       return checkpoints.map(checkpoint => checkpoint.done);
     });
     this.state = {
-      capabilityCheckpointStates: capabilityCheckpointStates
+      capabilityCheckpointStates: capabilityCheckpointStates,
+      addCapabilityDialogOpen: false,
+      capabilityToAdd: ""
     };
   }
 
-  checkpointStatusChange(capabilityIndex, checkpointIndex, newState) {
+  componentDidUpdate = () => {
+    const {
+      event: { capabilities }
+    } = this.props;
+    let capabilityCheckpointStates = Array(capabilities.length).fill([]);
+    capabilityCheckpointStates = capabilities.map(capability => {
+      const { checkpoints } = capability;
+      return checkpoints.map(checkpoint => checkpoint.done);
+    });
+    this.state = {
+      capabilityCheckpointStates: capabilityCheckpointStates,
+      addCapabilityDialogOpen: false,
+      capabilityToAdd: ""
+    };
+  };
+
+  checkpointStatusChange = (capabilityIndex, checkpointIndex, newState) => {
     const capabilityCheckpointStates = this.state.capabilityCheckpointStates.slice();
     capabilityCheckpointStates[capabilityIndex][checkpointIndex] = newState;
     this.setState({ capabilityCheckpointStates: capabilityCheckpointStates });
-  }
+  };
 
-  getProgressPercent() {
+  getProgressPercent = () => {
     const { capabilityCheckpointStates } = this.state;
     if (capabilityCheckpointStates.length === 0) {
       return 100;
@@ -150,33 +207,60 @@ class ViewCard extends React.Component {
     }
 
     return Math.floor((100 * numCompletedCheckpoints) / numCheckpoints);
-  }
+  };
+
+  handleAddCapabilityClick = () => {
+    this.setState({ addCapabilityDialogOpen: true });
+  };
+
+  closeCapabilityDialog = () => {
+    this.setState({ addCapabilityDialogOpen: false });
+  };
+
+  handleAddCapabilityChange = event => {
+    this.setState({ capabilityToAdd: event.target.value });
+  };
 
   render() {
     const { event } = this.props;
     const { capabilities, startDateTime, endDateTime } = event;
-    const { capabilityCheckpointStates } = this.state;
+    const {
+      capabilityCheckpointStates,
+      addCapabilityDialogOpen,
+      capabilityToAdd
+    } = this.state;
+    console.log(event);
     return (
-      <div style={{ padding: 70, width: "100%" }}>
-        <Card style={{ padding: "2rem" }}>
-          <CardHeader
-            title={
-              <Typography variant="h3">
-                <b>{event.name}</b>
-              </Typography>
-            }
-          />
-          <CardContent>
-            <Typography variant="h5" color="textSecondary">
-              {dateTimeRange(startDateTime, endDateTime)}
+      <div
+        style={{
+          padding: 70,
+          width: "50vw",
+          minWidth: 300,
+          margin: "0 auto"
+        }}
+      >
+        <Card>
+          <div style={{ padding: "16px 0" }}>
+            <Typography variant="h3" style={{ textAlign: "center" }}>
+              {event.name}
             </Typography>
-          </CardContent>
-          <CardContent>
-            <LinearProgress
-              variant="determinate"
-              value={this.getProgressPercent()}
-            />
-          </CardContent>
+            <CardContent>
+              <Typography
+                variant="h4"
+                color="textSecondary"
+                style={{ textAlign: "center" }}
+              >
+                {dateTimeRange(startDateTime, endDateTime)}
+              </Typography>
+            </CardContent>
+            <CardContent>
+              <LinearProgress
+                variant="determinate"
+                value={this.getProgressPercent()}
+                style={{ height: 8 }}
+              />
+            </CardContent>
+          </div>
           <CardContent>
             <CapabilityGroup
               eventId={event._id}
@@ -190,6 +274,51 @@ class ViewCard extends React.Component {
                 )
               }
             />
+          </CardContent>
+          <CardContent style={{ marginTop: "-2rem" }}>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => this.handleAddCapabilityClick()}
+            >
+              <AddIcon /> Add capability
+            </Button>
+            <Dialog
+              open={addCapabilityDialogOpen}
+              onClose={this.closeCapabilityDialog}
+              fullWidth={true}
+            >
+              <DialogTitle>Add capability</DialogTitle>
+              <DialogContent>
+                <CapabilitySelect
+                  handleAddCapabilityChange={this.handleAddCapabilityChange}
+                  capabilityToAdd={capabilityToAdd}
+                />
+              </DialogContent>
+              <DialogContent>
+                <Mutation mutation={ADD_CAPABILITY}>
+                  {addCapability => (
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      onClick={() => {
+                        addCapability({
+                          variables: {
+                            eventId: event._id,
+                            capabilityId: capabilityToAdd
+                          }
+                        });
+                        this.closeCapabilityDialog();
+                      }}
+                      size="small"
+                      color="primary"
+                    >
+                      <AddIcon /> Add
+                    </Button>
+                  )}
+                </Mutation>
+              </DialogContent>
+            </Dialog>
           </CardContent>
         </Card>
       </div>
