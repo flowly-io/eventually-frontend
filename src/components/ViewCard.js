@@ -14,8 +14,8 @@ function deleteEvent() {
 }
 
 class CapabilityGroup extends React.Component {
-  deleteEvent = () => {
-    console.log("Deleted! (but not really)")
+  deleteCapability = (id) => {
+    console.log(`Deleted capability ${id}! (but not really)`)
   }
   
   render() {
@@ -33,7 +33,7 @@ class CapabilityGroup extends React.Component {
                 </Grid>
                 <Grid item>
                 <CardActions>
-                  <Button onClick={this.deleteEvent} size="small" color="primary">
+                  <Button onClick={() => this.deleteCapability(capability._id)} size="small" color="primary">
                     <Delete /> Remove
                   </Button>
                 </CardActions>
