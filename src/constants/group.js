@@ -1,5 +1,8 @@
 export default {
   ADMIN: "admins",
   CATERING: "catering",
-  STUDENTS: "students"
+  STUDENTS: "students",
+  SECURITY: "security",
+  BINS: "bins",
+  VENUES: "venues",
 };
