@@ -22,6 +22,13 @@ export const FIELDS_ON_EVENT = gql`
           done
         }
       }
+      ... on CapabilityInstance {
+        template {
+          delegateGroups {
+            name
+          }
+        }
+      }
     }
     startDateTime
     endDateTime
@@ -46,12 +53,42 @@ export const GET_EVENTS = gql`
   ${FIELDS_ON_EVENT}
 `;
 
-export const GET_EVENT = eventId => {
-  return gql`query {
-    event(eventId: "${eventId}") {
+export const GET_EVENT = gql`
+  query($eventId: ID!) {
+    event(eventId: $eventId) {
       ...eventFields
     }
   }
   ${FIELDS_ON_EVENT}
 `;
-};
+
+export const GET_CAPABILITIES = gql`
+  query {
+    capabilities {
+      _id
+      name
+      description
+      checkpoints {
+        description
+      }
+    }
+  }
+`;
+
+export const CREATE_EVENT = gql`
+  mutation($event: EventInput!) {
+    createEvent(event: $event) {
+      _id
+      name
+      organisers {
+        firstname
+        lastname
+        email
+      }
+      audiences
+      startDateTime
+      endDateTime
+      maxCapacity
+    }
+  }
+`;

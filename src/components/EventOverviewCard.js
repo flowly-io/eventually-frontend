@@ -2,24 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Edit from "@material-ui/icons/Edit";
 import dateTimeRange from "../util/dateTimeRange";
 
 class EventOverviewCard extends React.Component {
   render() {
     const { event } = this.props;
     const { organisers, startDateTime, endDateTime } = event;
-    const { firstname, lastname } = organisers[0];
-    const organiserString = `${firstname} ${lastname}${
-      organisers.length > 1 ? ", ..." : ""
-    }`;
+    const organiserString = organisers
+      .map(o => `${o.firstname} ${o.lastname}`)
+      .join(", ");
     return (
-      <div style={{ padding: 70 }}>
-        <Card>
+      <div
+        style={{ margin: "16px auto", width: "60vw", minWidth: 300 }}
+        className="fancy-render-animation"
+      >
+        <Card elevation={8}>
           <CardActionArea component={Link} to={`/events/${event._id}`}>
             <CardContent>
               <Typography variant="h5" component="h2">
@@ -33,11 +32,6 @@ class EventOverviewCard extends React.Component {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              <Edit /> Edit
-            </Button>
-          </CardActions>
         </Card>
       </div>
     );

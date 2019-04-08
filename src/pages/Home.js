@@ -5,28 +5,14 @@ import EventOverviewCard from "../components/EventOverviewCard";
 
 // GraphQL Quries
 import { GET_EVENTS_BY_ME } from "../queries/events";
-import { CircularProgress } from "@material-ui/core";
+import Loader from "../components/Loader";
 
 function Home() {
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <Query query={GET_EVENTS_BY_ME}>
         {({ loading, error, data }) => {
-          if (loading)
-            return (
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column"
-                }}
-              >
-                <CircularProgress size={100} />
-                <h2>Loading your events...</h2>
-              </div>
-            );
+          if (loading) return <Loader size={100} text="Loading your events"/>;
           if (error)
             return (
               <div

@@ -3,19 +3,19 @@ import { TextField, Typography, Button } from "@material-ui/core";
 import history from "../config/history";
 import * as formStore from "../formStore";
 
-export default class SetDate extends React.Component {
-  nameRef = React.createRef();
+export default class SetDescription extends React.Component {
+  descriptionRef = React.createRef();
 
   nextPage = () => {
-    if (this.nameRef.current.value !== "") {
-      formStore.setName(this.nameRef.current.value);
-      history.push("/create/description");
+    if (this.descriptionRef.current.value !== "") {
+      formStore.setDescription(this.descriptionRef.current.value);
+      history.push("/create/date");
     }
   };
 
   componentDidMount() {
-    this.nameRef.current.value = formStore.store.name || "";
-    this.nameRef.current.focus();
+    this.descriptionRef.current.value = formStore.store.description || "";
+    this.descriptionRef.current.focus();
   }
 
   render() {
@@ -30,10 +30,10 @@ export default class SetDate extends React.Component {
         }}
       >
         <Typography variant="h3" style={{ fontWeight: 400 }}>
-          What is your event name?
+          What is the purpose of your event?
         </Typography>
         <TextField
-          inputRef={this.nameRef}
+          inputRef={this.descriptionRef}
           style={{ margin: "32px 0", display: "block", width: "100%" }}
         />
         <Button
